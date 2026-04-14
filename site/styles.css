@@ -410,3 +410,41 @@ p {
         justify-content: center;
     }
 }
+
+/* Эффекты для кнопок соцсетей */
+.social-link {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 12px;
+    border-radius: 12px;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    text-decoration: none;
+}
+
+.yt-btn { color: #ff0000; }
+.vk-btn { color: #0077FF; }
+.inst-btn { color: #E1306C; }
+
+.yt-btn:hover {
+    background: #ff0000 !important;
+    color: #fff !important;
+    box-shadow: 0 0 20px rgba(255, 0, 0, 0.4);
+    border-color: #ff0000 !important;
+}
+
+.vk-btn:hover {
+    background: #0077FF !important;
+    color: #fff !important;
+    box-shadow: 0 0 20px rgba(0, 119, 255, 0.4);
+    border-color: #0077FF !important;
+}
+
+.inst-btn:hover {
+    background: #E1306C !important;
+    color: #fff !important;
+    box-shadow: 0 0 20px rgba(225, 48, 108, 0.4);
+    border-color: #E1306C !important;
+}
