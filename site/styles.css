@@ -433,3 +433,10 @@ p {
 
     .designer-link { align-items: center; }
 }
+
+/* Эффект для заголовка при наведении на карточку */
+    .contact-card:hover .contact-title-highlight {
+        color: var(--accent-blue) !important;
+        text-shadow: 0 0 15px rgba(59, 130, 246, 0.5);
+        transform: translateX(4px);
+    }
