@@ -1,166 +1,293 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>JanPro.ru | Ян Савченко: Электрощиты нового времени (Умный дом)</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700;900&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="site/styles.css">
-    <link rel="icon" type="image/x-icon" href="site/favicon.ico" />
-    <meta name="description" content="JanPro.ru (ЯнПро) — профессиональная сборка электрощитов от Яна Савченко. Проектирование систем Умный дом на WirenBoard и Loxone. Техническая эстетика и безопасность.">
-    <link rel="canonical" href="https://janpro.ru/" />
-    <meta property="og:type" content="website" />
-    <meta property="og:url" content="https://janpro.ru/" />
-    <meta property="og:title" content="JanPro.ru | Ян Савченко: Электрощиты нового времени (Умный дом)" />
-    <meta property="og:description" content="JanPro.ru (ЯнПро) — профессиональная сборка электрощитов от Яна Савченко. Проектирование систем Умный дом на WirenBoard и Loxone. Техническая эстетика и безопасность." />
-    <meta property="og:image" content="https://janpro.ru/site/img/og-preview.png" />
-    <script src="site/metrics.js" defer></script>
-    <meta name="keywords" content="ян савченко, janpro, janpro.ru, электрощиты, янпро, ян про, сборка щитов, умный дом, wirenboard, loxone, березники">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Электромастерская Чайникова</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;800;900&display=swap');
+
+        :root {
+            --bg-deep: #050505;
+            --accent-purple: #8b5cf6;
+            --accent-blue: #3b82f6;
+            --glass-bg: rgba(255, 255, 255, 0.02);
+            --glass-border: rgba(255, 255, 255, 0.05);
+            --text-main: #ffffff;
+            --text-muted: #8892b0;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: var(--bg-deep);
+            background-image:
+                radial-gradient(circle at 15% 50%, rgba(139, 92, 246, 0.15), transparent 25%),
+                radial-gradient(circle at 85% 30%, rgba(59, 130, 246, 0.15), transparent 25%);
+            color: var(--text-main);
+            padding: 40px 20px;
+            min-height: 100vh;
+            line-height: 1.6;
+        }
+
+        .bento-grid {
+            display: grid;
+            grid-template-columns: repeat(12, 1fr);
+            grid-auto-rows: minmax(180px, auto);
+            gap: 20px;
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        .bento-card {
+            background: var(--glass-bg);
+            backdrop-filter: blur(24px);
+            -webkit-backdrop-filter: blur(24px);
+            border: 1px solid var(--glass-border);
+            border-radius: 30px;
+            padding: 40px;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            overflow: hidden;
+            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), border-color 0.4s;
+        }
+
+        .bento-card:hover {
+            transform: translateY(-5px);
+            border-color: rgba(139, 92, 246, 0.3);
+        }
+
+        .bento-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: -100%; width: 50%; height: 100%;
+            background: linear-gradient(to right, transparent, rgba(255,255,255,0.03), transparent);
+            transform: skewX(-20deg);
+            transition: 0.5s;
+        }
+        .bento-card:hover::before { left: 150%; }
+
+        .span-8 { grid-column: span 8; }
+        .span-4 { grid-column: span 4; }
+        .span-6 { grid-column: span 6; }
+        .span-12 { grid-column: span 12; }
+        .row-span-2 { grid-row: span 2; }
+
+        /* --- Обновленная типографика главного блока --- */
+        .hero-card { justify-content: center; }
+
+        .pre-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 4px;
+            margin-bottom: 5px;
+        }
+
+        h1 {
+            font-size: 3.5rem; /* Сделал имя чуть крупнее для контраста */
+            font-weight: 900;
+            line-height: 1.1;
+            margin-bottom: 20px;
+            background: linear-gradient(135deg, #fff 0%, #a5b4fc 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* Контейнер для тегов, чтобы они стояли в ряд */
+        .tags-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-bottom: 25px;
+        }
+
+        .hero-tag {
+            display: inline-block;
+            padding: 8px 16px;
+            background: rgba(59, 130, 246, 0.1);
+            border: 1px solid rgba(59, 130, 246, 0.3);
+            border-radius: 20px;
+            color: var(--accent-blue);
+            font-size: 0.8rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        h2 { font-size: 1.5rem; margin-bottom: 15px; font-weight: 800; }
+        p { color: var(--text-muted); font-weight: 600; font-size: 0.95rem; }
+
+        .contact-card {
+            background: linear-gradient(180deg, rgba(139, 92, 246, 0.05) 0%, rgba(59, 130, 246, 0.05) 100%);
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+        }
+
+        .avatar-placeholder {
+            width: 120px; height: 120px;
+            border-radius: 50%;
+            background: linear-gradient(45deg, var(--accent-purple), var(--accent-blue));
+            margin-bottom: 20px;
+            padding: 3px;
+        }
+        .avatar-inner {
+            width: 100%; height: 100%;
+            background: var(--bg-deep);
+            border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 2rem;
+        }
+
+        .action-btn {
+            display: flex; align-items: center; justify-content: center;
+            width: 100%; padding: 15px; margin-top: 10px;
+            border-radius: 15px;
+            text-decoration: none; font-weight: 800; font-size: 0.9rem;
+            transition: all 0.3s;
+        }
+        .btn-tg { background: #2AABEE; color: white; }
+        .btn-tg:hover { background: #1c93d2; box-shadow: 0 5px 15px rgba(42, 171, 238, 0.4); }
+        .btn-wa { background: #25D366; color: white; }
+        .btn-wa:hover { background: #1ebc59; box-shadow: 0 5px 15px rgba(37, 211, 102, 0.4); }
+
+        .icon-card { justify-content: space-between; }
+        .card-icon {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            background: rgba(255,255,255,0.03);
+            width: 70px; height: 70px;
+            display: flex; align-items: center; justify-content: center;
+            border-radius: 20px;
+        }
+
+        .service-list { list-style: none; margin-top: 20px; }
+        .service-list li {
+            margin-bottom: 12px;
+            display: flex; align-items: center; gap: 10px;
+            color: #ccc; font-weight: 600; font-size: 0.9rem;
+        }
+        .service-list li::before { content: '⚡'; font-size: 0.8rem; }
+
+        .footer-card {
+            display: flex; flex-direction: row; justify-content: space-between; align-items: center;
+            padding: 20px 40px; margin-top: 20px; border-radius: 20px;
+        }
+
+        @media (max-width: 900px) {
+            .span-8, .span-4, .span-6 { grid-column: span 12; }
+            .row-span-2 { grid-row: span 1; }
+            h1 { font-size: 2.2rem; }
+            .tags-row { gap: 8px; }
+            .hero-tag { font-size: 0.7rem; padding: 6px 12px; }
+            .footer-card { flex-direction: column; gap: 10px; text-align: center; }
+        }
+    </style>
 </head>
 <body>
 
+<div class="bento-grid">
 
-<div class="bg-depth"></div>
-<div class="container">
+    <div class="bento-card span-8 hero-card">
+        <div class="pre-title">Электромастерская</div>
+        <h1>Сергей Чайников</h1>
 
-    <div id="header-container"></div>
-    <div id="menu-container"></div>
+        <div class="tags-row">
+            <div class="hero-tag">Проектирование</div>
+            <div class="hero-tag">Сборка</div>
+            <div class="hero-tag">Настройка</div>
+        </div>
 
-    <div class="card about-section">
+        <p style="font-size: 1.1rem; max-width: 80%;">Бескомпромиссная сборка электрощитов под ключ. Проектируем безопасность и комфорт для квартир, загородных домов и бизнеса. Работаем на результат, за который не стыдно.</p>
+    </div>
 
-        <div class="about-top">
-            <div class="about-intro">
-                <div class="about-title-row">
-                    <div style="width: 44px; height: 44px;">
-                        <svg class="title-icon-svg" viewBox="0 0 24 24" fill="none">
-                            <defs>
-                                <linearGradient id="grad1" x1="0%" y1="0%" x2="100%" y2="100%">
-                                    <stop offset="0%" style="stop-color:#FFFFFF" />
-                                    <stop offset="100%" style="stop-color:#C0C8D8" />
-                                </linearGradient>
-                            </defs>
-                            <rect x="5" y="4" width="14" height="18" rx="3" fill="url(#grad1)"/>
-                            <rect x="10" y="2" width="4" height="3" rx="1" fill="url(#grad1)"/>
-                            <circle cx="12" cy="10" r="2.5" fill="#080808" opacity="0.15"/>
-                            <path d="M12 13.5C10.5 13.5 9.15 14.1 8.5 15C9.2 16.2 10.5 17 12 17C13.5 17 14.8 16.2 15.5 15C14.85 14.1 13.5 13.5 12 13.5Z" fill="#080808" opacity="0.15"/>
-                            <rect x="8" y="18" width="8" height="1.5" rx="0.75" fill="#080808" opacity="0.2"/>
-                        </svg>
-                    </div>
-                    <h2>Кто мы?</h2>
-                </div>
+    <div class="bento-card span-4 row-span-2 contact-card">
+        <div class="avatar-placeholder">
+            <div class="avatar-inner">👨‍🔧</div>
+        </div>
+        <h2 style="margin-bottom: 5px; font-size: 1.2rem;">Связь с мастером</h2>
+        <p style="margin-bottom: 25px; font-size: 0.8rem;">Бесплатная консультация и расчет сметы</p>
 
+        <a href="https://t.me/sergeychaikov" class="action-btn btn-tg">Написать в Telegram</a>
+        <a href="https://wa.me/79508220287" class="action-btn btn-wa">Написать в WhatsApp</a>
 
-                <p class="about-slogan">
-                    Электрощиты нового времени. Позвольте себе стать "Великим Нехочухой", а мы добавим в вашу жизнь безопасности, комфорта и щепотку лени.
-                </p>
+        <p style="margin-top: 25px; color: #fff; font-weight: 800; font-size: 1.2rem;">+7 950 822-02-87</p>
+    </div>
 
-                <div class="stats-grid">
-                    <div class="stat-item">
-                        <span class="stat-val">15+</span>
-                        <span class="stat-label">Лет опыта</span>
-                    </div>
-                    <div class="stat-item">
-                        <span class="stat-val">500+</span>
-                        <span class="stat-label">Проектов</span>
-                    </div>
-                    <div class="stat-item">
-                        <span class="stat-val">до 3х лет</span>
-                        <span class="stat-label">Гарантии</span>
-                    </div>
-                </div>
+    <div class="bento-card span-4 icon-card" style="background: linear-gradient(135deg, rgba(139, 92, 246, 0.1), rgba(0,0,0,0));">
+        <div>
+            <h2 style="font-size: 3.5rem; margin-bottom: -10px; color: var(--accent-purple);">10+</h2>
+            <p style="text-transform: uppercase; letter-spacing: 2px; font-size: 0.7rem;">Лет в профессии</p>
+        </div>
+        <p style="margin-top: 20px;">От обычного электромонтажа до создания сложных систем автоматизации.</p>
+    </div>
+
+    <div class="bento-card span-4 icon-card">
+        <div class="card-icon">🛡️</div>
+        <h2>До 5 лет гарантии</h2>
+        <p>Используем только сертифицированную автоматику. Каждый щит проходит строгую проверку перед отправкой на объект.</p>
+    </div>
+
+    <div class="bento-card span-6">
+        <div style="display: flex; justify-content: space-between; align-items: flex-start;">
+            <div>
+                <div class="hero-tag" style="background: rgba(255,255,255,0.05); color: #fff; border: none; margin-bottom: 15px;">Онлайн сервис</div>
+                <h2>Расчет стоимости</h2>
+                <p>Пришлите план помещений, и мы подготовим точный расчет в трех ценовых категориях.</p>
             </div>
+            <div class="card-icon" style="background: var(--accent-blue);">🧮</div>
+        </div>
+    </div>
 
-            <div class="about-video" onclick="loadVideo(this)" data-vk-oid="-76846822" data-vk-id="456239435">
-                <div class="video-cover">
-                    <img src="site/img/videos/video-cover.jpg" alt="JanPro Intro">
-                    <div class="custom-play-btn">▶</div>
-                </div>
+    <div class="bento-card span-6">
+        <div style="display: flex; justify-content: space-between; align-items: flex-start;">
+            <div>
+                <h2>Наши проекты</h2>
+                <p>Посмотрите примеры готовых сборок и решений для умного дома в нашем Telegram-канале.</p>
             </div>
+            <div class="card-icon" style="border: 1px solid var(--accent-purple);">📱</div>
         </div>
+    </div>
 
-        <div class="about-description">
-            <p>Мы - команда профессионалов <b>JanPro<span class="red-text">.ru</span></b>, много лет занимающаяся любимым делом. Прошли путь от электромонтажников до компании, производящей уникальные электрощиты для квартир и частных домов, а также щиты с системами "Умный дом" на базе контроллеров WirenBoard и Loxone, беспроводные умные дома, построенные по технологии Zigbee.</p>
-        </div>
-
-        <div class="about-buttons-wrapper">
-            <a href="videos.html" class="nav-btn btn-primary">
-                <span class="btn-icon-play">►</span>
-                <span>Что нужно знать перед стартом</span>
-            </a>
-
-            <a href="team.html" class="nav-btn btn-secondary">
-                <span>Наша команда</span>
-                <span class="btn-icon-arrow">➔</span>
-            </a>
-        </div>
-
-        <div class="ticker-wrap">
-            <div class="ticker">
-                <span class="ticker-item">ABB</span>
-                <span class="ticker-item">Wiren Board</span>
-                <span class="ticker-item">Loxone</span>
-                <span class="ticker-item">spruthub</span>
-                <span class="ticker-item">Mean Well</span>
-                <span class="ticker-item">Лайтверк</span>
-                <span class="ticker-item">Systeme Electric</span>
-                <span class="ticker-item">Профкарниз</span>
-                <span class="ticker-item">Arlight</span>
-                <span class="ticker-item">EKf</span>
-
-                <span class="ticker-item">ABB</span>
-                <span class="ticker-item">Wiren Board</span>
-                <span class="ticker-item">Loxone</span>
-                <span class="ticker-item">spruthub</span>
-                <span class="ticker-item">Mean Well</span>
-                <span class="ticker-item">Лайтверк</span>
-                <span class="ticker-item">Systeme Electric</span>
-                <span class="ticker-item">Профкарниз</span>
-                <span class="ticker-item">Arlight</span>
-                <span class="ticker-item">EKf</span>
+    <div class="bento-card span-12">
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 40px;">
+            <div>
+                <h2>Проектирование</h2>
+                <ul class="service-list">
+                    <li>Схемы любой сложности</li>
+                    <li>Расчет нагрузок и сечений</li>
+                    <li>Подбор оборудования</li>
+                </ul>
+            </div>
+            <div>
+                <h2>Сборка щитов</h2>
+                <ul class="service-list">
+                    <li>Аккуратный монтаж</li>
+                    <li>Понятная маркировка</li>
+                    <li>Тестирование под нагрузкой</li>
+                </ul>
+            </div>
+            <div>
+                <h2>Специфика</h2>
+                <ul class="service-list">
+                    <li>Умный дом (WirenBoard, Zigbee)</li>
+                    <li>Ретро-проводка</li>
+                    <li>Командировки по РФ</li>
+                </ul>
             </div>
         </div>
     </div>
-    
-    <section class="card home-final-cta">
-        <h2>Изготовим щит под ваш объект!</h2>
-        <p>Пришлите площадь, тип объекта и пожелания — подготовим предварительный расчет и предложим оптимальную конфигурацию. Можете написать нам, а можете воспользоваться калькулятором, чтобы изучить, из чего формируется итоговая цена.</p>
-        <div class="hero-actions">
-            <a href="https://t.me/JanPro59" target="_blank" class="nav-btn btn-secondary">Написать в Telegram</a>
-            <a href="calculator.html" class="nav-btn btn-secondary">Открыть калькулятор</a>
-        </div>
-    </section>
 
-    <div id="services-container" style="display: flex; flex-direction: column; gap: 20px;"></div>
-
-    <div id="footer-container"></div>
+    <div class="bento-card span-12 footer-card">
+        <p>© 2026 Электромастерская Чайникова</p>
+        <p style="font-size: 0.8rem;">DESIGNED BY <span style="color: #ef4444; font-weight: 900; font-size: 0.9rem;">ReD</span></p>
+    </div>
 
 </div>
-
-<script src="site/loader.js"></script>
-
-<script>
-    function loadVideo(element) {
-        const oid = element.getAttribute('data-vk-oid');
-        const id = element.getAttribute('data-vk-id');
-        const iframe = document.createElement('iframe');
-
-        iframe.setAttribute('src', `https://vk.com/video_ext.php?oid=${oid}&id=${id}&hd=2&autoplay=1&volume=100`);
-        iframe.setAttribute('width', '100%');
-        iframe.setAttribute('height', '100%');
-        iframe.setAttribute('frameborder', '0');
-        iframe.setAttribute('allow', 'autoplay *; fullscreen *; encrypted-media *; picture-in-picture *;');
-        iframe.setAttribute('allowfullscreen', '');
-
-        element.innerHTML = '';
-        element.appendChild(iframe);
-    }
-
-    if(typeof initPage === 'function') {
-        initPage('home');
-    }
-</script>
 
 </body>
 </html>
