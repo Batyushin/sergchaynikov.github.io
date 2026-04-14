@@ -54,7 +54,7 @@
         }
 
         /* ==========================================================================
-           3. РЕКВИЗИТЫ (УВЕЛИЧЕННЫЙ ШРИФТ)
+           3. РЕКВИЗИТЫ (ИСПРАВЛЕН ШРИФТ И РАЗМЕР)
            ========================================================================== */
         .details-grid {
             display: grid;
@@ -63,32 +63,35 @@
         }
 
         .details-group h3 {
-            font-size: 0.8rem; /* Чуть увеличили заголовок группы */
+            font-size: 0.8rem;
             text-transform: uppercase;
             letter-spacing: 1.5px;
             color: var(--accent-blue);
             margin-bottom: 15px;
             opacity: 0.8;
+            font-weight: 800;
         }
 
         .detail-item {
-            margin-bottom: 15px; /* Увеличили отступ между пунктами */
+            margin-bottom: 15px;
             border-bottom: 1px solid rgba(255,255,255,0.05);
             padding-bottom: 8px;
         }
 
         .detail-label {
-            font-size: 0.75rem; /* Было 0.6rem — стало крупнее */
+            font-size: 0.75rem;
             color: var(--text-muted);
             display: block;
             margin-bottom: 4px;
+            font-weight: 600;
         }
 
         .detail-value {
-            font-family: 'Courier New', monospace;
-            font-size: 1.15rem; /* Было 0.85rem — теперь текст основной и читаемый */
+            font-family: 'Montserrat', sans-serif; /* Исправлено: теперь как везде */
+            font-size: 1.1rem; /* Оптимальный крупный размер */
             color: #fff;
-            font-weight: 600;
+            font-weight: 700;
+            letter-spacing: 0.3px;
         }
 
         /* ==========================================================================
@@ -115,6 +118,7 @@
         @media (max-width: 900px) {
             .details-grid { grid-template-columns: 1fr; gap: 15px; }
             .tight-card { padding: 20px !important; }
+            .detail-value { font-size: 1rem; } /* Чуть меньше на мобилках чтобы не переносилось */
         }
     </style>
 </head>
@@ -158,23 +162,23 @@
                 <h2>Наш офис</h2>
             </div>
 
-            <p style="font-size: 0.9rem; color: #fff; margin-bottom: 20px;">г. Ижевск, ул. Удмуртская, д. 218, офис 15</p>
+            <p style="font-size: 0.9rem; color: #fff; margin-bottom: 20px; font-weight: 600;">г. Ижевск, ул. Удмуртская, д. 218, офис 15</p>
 
             <div style="margin-bottom: 15px;">
-                <span style="font-size: 0.65rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px; display: block; margin-bottom: 4px;">Телефон</span>
+                <span style="font-size: 0.65rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px; display: block; margin-bottom: 4px; font-weight: 700;">Телефон</span>
                 <a href="tel:+79508220287" style="color: #fff; text-decoration: none; font-weight: 800; font-size: 1.1rem; transition: color 0.3s;" onmouseover="this.style.color='var(--accent-blue)'" onmouseout="this.style.color='#fff'">
                     +7 (950) 822-02-87
                 </a>
             </div>
 
             <div style="margin-bottom: 20px;">
-                <span style="font-size: 0.65rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px; display: block; margin-bottom: 4px;">Email</span>
-                <a href="mailto:info@chaynikovs.ru" style="color: #fff; text-decoration: none; font-weight: 600; font-size: 1rem; opacity: 0.9; transition: opacity 0.3s;" onmouseover="this.style.opacity='1'; this.style.color='var(--accent-blue)'" onmouseout="this.style.opacity='0.9'; this.style.color='#fff'">
+                <span style="font-size: 0.65rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px; display: block; margin-bottom: 4px; font-weight: 700;">Email</span>
+                <a href="mailto:info@chaynikovs.ru" style="color: #fff; text-decoration: none; font-weight: 700; font-size: 1rem; opacity: 0.9; transition: opacity 0.3s;" onmouseover="this.style.opacity='1'; this.style.color='var(--accent-blue)'" onmouseout="this.style.opacity='0.9'; this.style.color='#fff'">
                     info@chaynikovs.ru
                 </a>
             </div>
 
-            <p style="font-size: 0.75rem; color: var(--text-muted); line-height: 1.4;">Принимаем заказы и отправляем готовые щиты по всей РФ</p>
+            <p style="font-size: 0.75rem; color: var(--text-muted); line-height: 1.4; font-weight: 600;">Принимаем заказы и отправляем готовые щиты по всей РФ</p>
 
             <div style="margin-top: auto; padding-top: 20px;">
                 <a href="https://yandex.com/maps/44/izhevsk/house/udmurtskaya_ulitsa_218/YUoYdAVoS0IGQFtsfXR1cnRkZA==/?ll=53.222561%2C56.823462&z=12.52"
