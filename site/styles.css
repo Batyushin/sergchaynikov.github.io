@@ -1,5 +1,5 @@
 /* ==========================================================================
-   1. ШРИФТЫ И ПЕРЕМЕННЫЕ
+   1. ПЕРЕМЕННЫЕ И ШРИФТЫ
    ========================================================================== */
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;800;900&display=swap');
 
@@ -14,7 +14,7 @@
 }
 
 /* ==========================================================================
-   2. ОБЩИЕ СТИЛИ СТРАНИЦЫ
+   2. ОСНОВНЫЕ СТИЛИ (RESET & BODY)
    ========================================================================== */
 * {
     margin: 0;
@@ -77,7 +77,6 @@ body {
     gap: 20px;
 }
 
-/* Размеры ячеек */
 .span-12 { grid-column: span 12; }
 .span-8 { grid-column: span 8; }
 .span-6 { grid-column: span 6; }
@@ -104,7 +103,6 @@ body {
     transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.4s ease, border-color 0.4s ease;
 }
 
-/* Диагональный блик при наведении */
 .bento-card::before {
     content: '';
     position: absolute;
@@ -126,7 +124,6 @@ body {
                 inset 0 1px 0 rgba(255, 255, 255, 0.2);
 }
 
-/* Модификаторы свечения карточек */
 .glow-blue:hover {
     border-color: rgba(59, 130, 246, 0.6);
     box-shadow: 0 15px 40px 0 rgba(0, 0, 0, 0.7), 0 0 40px rgba(59, 130, 246, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.2);
@@ -137,9 +134,8 @@ body {
     box-shadow: 0 15px 40px 0 rgba(0, 0, 0, 0.7), 0 0 40px rgba(34, 197, 94, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.2);
 }
 
-/* Позиционирование контента внутри карт */
 .hero-card { justify-content: center; }
-.contact-card { align-items: center; justify-content: center; text-align: center; background: linear-gradient(180deg, rgba(255, 255, 255, 0.05) 0%, rgba(255, 255, 255, 0.0) 100%); }
+.contact-card { align-items: center; justify-content: center; text-align: center; }
 .icon-card { justify-content: flex-start; }
 
 /* ==========================================================================
@@ -179,7 +175,9 @@ p {
     margin-bottom: 5px;
 }
 
-/* Теги (Hero Tags) */
+/* ==========================================================================
+   6. КНОПКИ ГЛАВНОГО ЭКРАНА (HERO TAGS)
+   ========================================================================== */
 .tags-row {
     display: flex;
     flex-wrap: wrap;
@@ -189,32 +187,63 @@ p {
 
 .hero-tag {
     display: inline-block;
-    padding: 8px 16px;
-    background: rgba(255, 255, 255, 0.02);
+    padding: 10px 24px;
+    background: rgba(139, 92, 246, 0.05);
     backdrop-filter: blur(16px);
-    border: 1px solid rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(139, 92, 246, 0.3);
     border-radius: 20px;
     color: #fff;
-    font-size: 0.8rem;
+    font-size: 0.85rem;
     font-weight: 800;
     text-transform: uppercase;
-    letter-spacing: 1px;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+    letter-spacing: 1.5px;
+    text-decoration: none;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+}
+
+.hero-tag:hover {
+    background: var(--accent-purple);
+    border-color: var(--accent-purple);
+    color: #fff;
+    transform: translateY(-3px) scale(1.05);
+    box-shadow: 0 0 25px rgba(139, 92, 246, 0.5), 0 5px 15px rgba(0, 0, 0, 0.4);
+}
+
+.hero-tag:active {
+    transform: translateY(-1px) scale(0.98);
+}
+
+.hero-tag:first-child { animation: pulse-border 3s infinite; }
+
+@keyframes pulse-border {
+    0% { border-color: rgba(139, 92, 246, 0.3); }
+    50% { border-color: rgba(139, 92, 246, 0.8); box-shadow: 0 0 10px rgba(139, 92, 246, 0.2); }
+    100% { border-color: rgba(139, 92, 246, 0.3); }
 }
 
 /* ==========================================================================
-   6. КОМПОНЕНТЫ (КОНТАКТЫ, КНОПКИ, ИКОНКИ)
+   7. КОМПОНЕНТЫ: КОНТАКТЫ И СВЯЗЬ
    ========================================================================== */
 
-/* Аватар мастера */
 .avatar-placeholder {
     width: 120px;
     height: 120px;
     border-radius: 50%;
-    background: linear-gradient(135deg, rgba(255,255,255,0.08), rgba(255,255,255,0));
+    /* Очень тусклый фон внутри кольца */
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.02) 0%, rgba(255, 255, 255, 0) 100%);
+    backdrop-filter: blur(10px);
+
     border: 1px solid rgba(255,255,255,0.15);
-    margin-bottom: 20px;
-    padding: 3px;
+    margin: 0 auto 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+
+    /* Разрешаем вылет за границы круга */
+    overflow: visible;
     box-shadow: 0 10px 30px rgba(0,0,0,0.5);
     transition: all 0.4s ease;
 }
@@ -222,36 +251,42 @@ p {
 .avatar-inner {
     width: 100%;
     height: 100%;
-    background: rgba(0,0,0,0.3);
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 4rem;
-    backdrop-filter: blur(5px);
+    /* Едва заметная подложка */
+    background: rgba(255, 255, 255, 0.01);
+
+    /* Состояние по умолчанию: уже немного вылезает */
+    font-size: 6rem;
+    transform: translateY(-10px) scale(1.1);
+
+    /* Тень под эмоджи для глубины */
+    filter: drop-shadow(0 10px 15px rgba(0,0,0,0.6));
+    transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1); /* Упругая анимация */
 }
 
+/* ЭФФЕКТ ПРИ НАВЕДЕНИИ */
+
+/* Кольцо немного светится сильнее */
 .contact-card:hover .avatar-placeholder {
-    transform: scale(1.05);
-    border-color: rgba(59, 130, 246, 0.8);
-    box-shadow: 0 0 50px rgba(59, 130, 246, 0.6), 0 0 80px rgba(139, 92, 246, 0.4);
+    border-color: rgba(59, 130, 246, 0.6);
+    box-shadow: 0 0 30px rgba(59, 130, 246, 0.3);
 }
 
-/* Кнопки связи (TG / WA) */
+/* Эмоджи увеличивается и «выпрыгивает» еще сильнее */
+.contact-card:hover .avatar-inner {
+    transform: translateY(-20px) scale(1.25); /* Становится больше и смещается выше */
+    filter: drop-shadow(0 15px 20px rgba(0,0,0,0.8));
+}
+
+/* Остальные стили кнопок (без изменений) */
 .action-btn {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 12px;
-    width: 100%;
-    padding: 15px;
-    margin-top: 10px;
-    border-radius: 15px;
-    text-decoration: none;
-    font-weight: 800;
-    font-size: 0.95rem;
-    transition: all 0.3s;
-    backdrop-filter: blur(16px);
+    display: flex; align-items: center; justify-content: center;
+    gap: 12px; width: 100%; padding: 15px; margin-top: 10px;
+    border-radius: 15px; text-decoration: none; font-weight: 800;
+    font-size: 0.95rem; transition: all 0.3s; backdrop-filter: blur(16px);
 }
 
 .btn-tg { background: rgba(42, 171, 238, 0.1); color: #2AABEE; border: 1px solid rgba(42, 171, 238, 0.2); }
@@ -261,16 +296,15 @@ p {
 .btn-wa:hover { background: #25D366; color: #fff; box-shadow: 0 5px 20px rgba(37, 211, 102, 0.4); border-color: #25D366;}
 
 .phone-link {
-    color: #fff;
-    text-decoration: none;
-    font-weight: 800;
-    font-size: 1.3rem;
-    transition: color 0.3s;
-    text-shadow: 0 2px 10px rgba(255,255,255,0.2);
+    color: #fff; text-decoration: none; font-weight: 800; font-size: 1.3rem;
+    transition: color 0.3s; text-shadow: 0 2px 10px rgba(255,255,255,0.2);
 }
 .phone-link:hover { color: var(--accent-blue); }
 
-/* Иконки услуг */
+
+/* ==========================================================================
+   8. УСЛУГИ И ИКОНКИ
+   ========================================================================== */
 .card-icon {
     font-size: 2.5rem;
     margin-bottom: 20px;
@@ -285,21 +319,8 @@ p {
     box-shadow: inset 0 2px 5px rgba(255,255,255,0.05);
 }
 
-/* Списки услуг */
-.service-list { list-style: none; margin-top: 20px; }
-.service-list li {
-    margin-bottom: 12px;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    color: rgba(255,255,255,0.8);
-    font-weight: 600;
-    font-size: 0.9rem;
-}
-.service-list li::before { content: '⚡'; font-size: 0.8rem; filter: drop-shadow(0 0 2px var(--accent-purple)); }
-
 /* ==========================================================================
-   7. КНОПКИ СОЦСЕТЕЙ (ПО МАКЕТУ)
+   9. КНОПКИ СОЦСЕТЕЙ
    ========================================================================== */
 .social-link-styled {
     display: flex;
@@ -317,37 +338,19 @@ p {
     border: 1px solid rgba(255, 255, 255, 0.08);
 }
 
-.social-link-styled:hover {
-    transform: scale(1.02);
-}
+.social-link-styled:hover { transform: scale(1.02); }
 
-/* Цвета брендов */
 .yt-link { color: #ff3333; }
-.yt-link:hover {
-    background: #ff3333 !important;
-    color: #fff !important;
-    border-color: #ff3333 !important;
-    box-shadow: 0 0 20px rgba(255, 51, 51, 0.4);
-}
+.yt-link:hover { background: #ff3333 !important; color: #fff !important; border-color: #ff3333 !important; box-shadow: 0 0 20px rgba(255, 51, 51, 0.4); }
 
 .vk-link { color: #0077FF; }
-.vk-link:hover {
-    background: #0077FF !important;
-    color: #fff !important;
-    border-color: #0077FF !important;
-    box-shadow: 0 0 20px rgba(0, 119, 255, 0.4);
-}
+.vk-link:hover { background: #0077FF !important; color: #fff !important; border-color: #0077FF !important; box-shadow: 0 0 20px rgba(0, 119, 255, 0.4); }
 
 .inst-link { color: #E1306C; }
-.inst-link:hover {
-    background: #E1306C !important;
-    color: #fff !important;
-    border-color: #E1306C !important;
-    box-shadow: 0 0 20px rgba(225, 48, 108, 0.4);
-}
+.inst-link:hover { background: #E1306C !important; color: #fff !important; border-color: #E1306C !important; box-shadow: 0 0 20px rgba(225, 48, 108, 0.4); }
 
 /* ==========================================================================
-   8. ПОДВАЛ (FOOTER)
+   10. ПОДВАЛ (FOOTER)
    ========================================================================== */
 .footer-card {
     display: flex;
@@ -380,18 +383,13 @@ p {
     letter-spacing: 0.5px;
 }
 
-.footer-legal {
-    font-size: 0.65rem;
-    color: rgba(255, 255, 255, 0.4);
-    font-family: monospace;
-    letter-spacing: 0.5px;
-}
+.footer-legal { font-size: 0.65rem; color: rgba(255, 255, 255, 0.4); font-family: monospace; }
 
 .footer-links { display: flex; gap: 20px; }
 .footer-links a { color: var(--text-muted); text-decoration: none; font-size: 0.85rem; transition: color 0.3s; }
 .footer-links a:hover { color: var(--text-main); }
 
-/* Дизайнер */
+/* Блок дизайнера */
 .designer-link {
     display: flex;
     flex-direction: column;
@@ -412,19 +410,25 @@ p {
 }
 
 .designer-link:hover .designer-text { color: #fff; }
-.designer-text .red-word { color: var(--accent-red); font-weight: 900; transition: all 0.3s ease; }
+
+.red-word { color: var(--accent-red); font-weight: 900; transition: all 0.3s ease; }
 .designer-link:hover .red-word { text-shadow: 0 0 15px rgba(239, 68, 68, 0.8); }
 
-.designer-city { font-size: 0.6rem; color: #555; transition: color 0.3s ease; }
+/* ВОТ ОНИ: Стили города дизайнера */
+.designer-city {
+    font-size: 0.6rem;
+    color: #555;
+    transition: color 0.3s ease;
+}
+
 .designer-link:hover .designer-city { color: #999; }
 
 /* ==========================================================================
-   9. АДАПТИВНОСТЬ
+   11. АДАПТИВНОСТЬ
    ========================================================================== */
 @media (max-width: 900px) {
     .span-8, .span-4, .span-6 { grid-column: span 12; }
     .row-span-2 { grid-row: span 1; }
-
     h1 { font-size: 2.5rem; }
     .tags-row { gap: 8px; }
     .hero-tag { font-size: 0.7rem; padding: 6px 12px; }
@@ -435,6 +439,27 @@ p {
         gap: 25px;
     }
 
+    .footer-left, .footer-right { align-items: center; }
+    .footer-copyright { justify-content: center; }
+
+    .designer-link { align-items: center; }
+}
+
+/* ==========================================================================
+   11. АДАПТИВНОСТЬ
+   ========================================================================== */
+@media (max-width: 900px) {
+    .span-8, .span-4, .span-6 { grid-column: span 12; }
+    .row-span-2 { grid-row: span 1; }
+    h1 { font-size: 2.5rem; }
+    .tags-row { gap: 8px; }
+    .hero-tag { font-size: 0.7rem; padding: 6px 12px; }
+
+    .footer-card {
+        flex-direction: column;
+        text-align: center;
+        gap: 25px;
+    }
     .footer-left, .footer-right { align-items: center; }
     .footer-copyright { justify-content: center; }
 }
