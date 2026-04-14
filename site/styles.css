@@ -410,25 +410,3 @@ p {
         justify-content: center;
     }
 }
-
-/* --- СТИЛИ ДЛЯ ЛОГОТИПОВ --- */
-.header-logo {
-    width: 80px; /* Размер логотипа в шапке */
-    height: auto;
-    margin-bottom: 20px;
-    filter: drop-shadow(0 0 15px rgba(255, 255, 255, 0.1));
-    display: block;
-}
-
-.footer-logo-wrap {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    margin-bottom: 5px;
-}
-
-.footer-mini-logo {
-    width: 28px; /* Размер логотипа в подвале */
-    height: auto;
-    opacity: 0.8;
-}
