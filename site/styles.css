@@ -1,7 +1,9 @@
+/* ==========================================================================
+   1. ШРИФТЫ И ПЕРЕМЕННЫЕ
+   ========================================================================== */
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;800;900&display=swap');
 
 :root {
-    /* Более глубокий, "богатый" темный цвет с едва уловимым синим подтоном */
     --bg-deep: #040408;
     --accent-purple: #8b5cf6;
     --accent-blue: #3b82f6;
@@ -11,6 +13,9 @@
     --text-muted: #8892b0;
 }
 
+/* ==========================================================================
+   2. ОБЩИЕ СТИЛИ СТРАНИЦЫ
+   ========================================================================== */
 * {
     margin: 0;
     padding: 0;
@@ -29,13 +34,13 @@ body {
     z-index: 0;
 }
 
-/* --- ФОНОВЫЕ СФЕРЫ (ГЛУБОКОЕ СВЕЧЕНИЕ) --- */
+/* Фоновое свечение (сферы) */
 .bg-glow::before,
 .bg-glow::after {
     content: '';
     position: fixed;
     border-radius: 50%;
-    filter: blur(140px); /* Увеличили размытие для большей мягкости */
+    filter: blur(140px);
     z-index: -1;
     opacity: 0.55;
     pointer-events: none;
@@ -44,7 +49,7 @@ body {
 .bg-glow::before {
     width: 50vw;
     height: 50vw;
-    background: rgba(139, 92, 246, 0.35); /* Фиолетовое свечение слева */
+    background: rgba(139, 92, 246, 0.35);
     top: -10%;
     left: -10%;
 }
@@ -52,11 +57,14 @@ body {
 .bg-glow::after {
     width: 45vw;
     height: 45vw;
-    background: rgba(59, 130, 246, 0.35); /* Синее свечение справа */
+    background: rgba(59, 130, 246, 0.35);
     bottom: -10%;
     right: -10%;
 }
 
+/* ==========================================================================
+   3. СЕТКА BENTO И СТРУКТУРА
+   ========================================================================== */
 .container {
     max-width: 1100px;
     margin: 0 auto;
@@ -69,14 +77,20 @@ body {
     gap: 20px;
 }
 
-/* --- УЛЬТРА-ПРОЗРАЧНОЕ СТЕКЛО --- */
+/* Размеры ячеек */
+.span-12 { grid-column: span 12; }
+.span-8 { grid-column: span 8; }
+.span-6 { grid-column: span 6; }
+.span-4 { grid-column: span 4; }
+.row-span-2 { grid-row: span 2; }
+
+/* ==========================================================================
+   4. БАЗОВАЯ КАРТОЧКА BENTO (ЭФФЕКТ СТЕКЛА)
+   ========================================================================== */
 .bento-card {
-    /* Почти прозрачная заливка */
     background: linear-gradient(135deg, rgba(255, 255, 255, 0.04) 0%, rgba(255, 255, 255, 0.0) 100%);
-    /* Сильное размытие фона (морозное стекло) */
     backdrop-filter: blur(32px) saturate(150%);
     -webkit-backdrop-filter: blur(32px) saturate(150%);
-    /* Тонкие блики на гранях */
     border: 1px solid rgba(255, 255, 255, 0.03);
     border-top: 1px solid rgba(255, 255, 255, 0.12);
     border-left: 1px solid rgba(255, 255, 255, 0.08);
@@ -86,12 +100,11 @@ body {
     flex-direction: column;
     position: relative;
     overflow: hidden;
-    /* Внутренняя и внешняя тень для объема */
     box-shadow: 0 10px 40px 0 rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.05);
     transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.4s ease, border-color 0.4s ease;
 }
 
-/* Блик, пробегающий по диагонали */
+/* Диагональный блик при наведении */
 .bento-card::before {
     content: '';
     position: absolute;
@@ -100,11 +113,11 @@ body {
     transform: skewX(-20deg);
     transition: 0.7s ease;
 }
+
 .bento-card:hover::before {
     left: 150%;
 }
 
-/* Общий неон при наведении */
 .bento-card:hover {
     transform: translateY(-5px);
     border-color: rgba(139, 92, 246, 0.5);
@@ -113,7 +126,7 @@ body {
                 inset 0 1px 0 rgba(255, 255, 255, 0.2);
 }
 
-/* Цветные неоны для специфичных карточек */
+/* Модификаторы свечения карточек */
 .glow-blue:hover {
     border-color: rgba(59, 130, 246, 0.6);
     box-shadow: 0 15px 40px 0 rgba(0, 0, 0, 0.7), 0 0 40px rgba(59, 130, 246, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.2);
@@ -124,25 +137,14 @@ body {
     box-shadow: 0 15px 40px 0 rgba(0, 0, 0, 0.7), 0 0 40px rgba(34, 197, 94, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.2);
 }
 
-/* Размеры в сетке */
-.span-8 { grid-column: span 8; }
-.span-4 { grid-column: span 4; }
-.span-6 { grid-column: span 6; }
-.span-12 { grid-column: span 12; }
-.row-span-2 { grid-row: span 2; }
-
-/* --- ТИПОГРАФИКА И ГЛАВНЫЙ ЭКРАН --- */
+/* Позиционирование контента внутри карт */
 .hero-card { justify-content: center; }
+.contact-card { align-items: center; justify-content: center; text-align: center; background: linear-gradient(180deg, rgba(255, 255, 255, 0.05) 0%, rgba(255, 255, 255, 0.0) 100%); }
+.icon-card { justify-content: flex-start; }
 
-.pre-title {
-    font-size: 1.2rem;
-    font-weight: 600;
-    color: rgba(255,255,255,0.6);
-    text-transform: uppercase;
-    letter-spacing: 4px;
-    margin-bottom: 5px;
-}
-
+/* ==========================================================================
+   5. ТИПОГРАФИКА
+   ========================================================================== */
 h1 {
     font-size: 3.5rem;
     font-weight: 900;
@@ -168,7 +170,16 @@ p {
     font-size: 0.95rem;
 }
 
-/* Теги */
+.pre-title {
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: rgba(255,255,255,0.6);
+    text-transform: uppercase;
+    letter-spacing: 4px;
+    margin-bottom: 5px;
+}
+
+/* Теги (Hero Tags) */
 .tags-row {
     display: flex;
     flex-wrap: wrap;
@@ -191,16 +202,14 @@ p {
     box-shadow: 0 4px 10px rgba(0,0,0,0.2);
 }
 
-/* --- БЛОК КОНТАКТОВ --- */
-.contact-card {
-    background: linear-gradient(180deg, rgba(255, 255, 255, 0.05) 0%, rgba(255, 255, 255, 0.0) 100%);
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-}
+/* ==========================================================================
+   6. КОМПОНЕНТЫ (КОНТАКТЫ, КНОПКИ, ИКОНКИ)
+   ========================================================================== */
 
+/* Аватар мастера */
 .avatar-placeholder {
-    width: 120px; height: 120px;
+    width: 120px;
+    height: 120px;
     border-radius: 50%;
     background: linear-gradient(135deg, rgba(255,255,255,0.08), rgba(255,255,255,0));
     border: 1px solid rgba(255,255,255,0.15);
@@ -210,21 +219,25 @@ p {
     transition: all 0.4s ease;
 }
 
+.avatar-inner {
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.3);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 4rem;
+    backdrop-filter: blur(5px);
+}
+
 .contact-card:hover .avatar-placeholder {
     transform: scale(1.05);
     border-color: rgba(59, 130, 246, 0.8);
     box-shadow: 0 0 50px rgba(59, 130, 246, 0.6), 0 0 80px rgba(139, 92, 246, 0.4);
 }
 
-.avatar-inner {
-    width: 100%; height: 100%;
-    background: rgba(0,0,0,0.3);
-    border-radius: 50%;
-    display: flex; align-items: center; justify-content: center;
-    font-size: 4rem;
-    backdrop-filter: blur(5px);
-}
-
+/* Кнопки связи (TG / WA) */
 .action-btn {
     display: flex;
     align-items: center;
@@ -257,28 +270,85 @@ p {
 }
 .phone-link:hover { color: var(--accent-blue); }
 
-/* --- ИКОНКИ --- */
-.icon-card { justify-content: flex-start; }
+/* Иконки услуг */
 .card-icon {
     font-size: 2.5rem;
     margin-bottom: 20px;
     background: rgba(255,255,255,0.03);
-    width: 70px; height: 70px;
-    display: flex; align-items: center; justify-content: center;
+    width: 70px;
+    height: 70px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     border-radius: 20px;
     border: 1px solid rgba(255,255,255,0.08);
     box-shadow: inset 0 2px 5px rgba(255,255,255,0.05);
 }
 
+/* Списки услуг */
 .service-list { list-style: none; margin-top: 20px; }
 .service-list li {
     margin-bottom: 12px;
-    display: flex; align-items: center; gap: 10px;
-    color: rgba(255,255,255,0.8); font-weight: 600; font-size: 0.9rem;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: rgba(255,255,255,0.8);
+    font-weight: 600;
+    font-size: 0.9rem;
 }
 .service-list li::before { content: '⚡'; font-size: 0.8rem; filter: drop-shadow(0 0 2px var(--accent-purple)); }
 
-/* --- ПОДВАЛ --- */
+/* ==========================================================================
+   7. КНОПКИ СОЦСЕТЕЙ (ПО МАКЕТУ)
+   ========================================================================== */
+.social-link-styled {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    width: 100%;
+    padding: 14px;
+    border-radius: 16px;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 1rem;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.social-link-styled:hover {
+    transform: scale(1.02);
+}
+
+/* Цвета брендов */
+.yt-link { color: #ff3333; }
+.yt-link:hover {
+    background: #ff3333 !important;
+    color: #fff !important;
+    border-color: #ff3333 !important;
+    box-shadow: 0 0 20px rgba(255, 51, 51, 0.4);
+}
+
+.vk-link { color: #0077FF; }
+.vk-link:hover {
+    background: #0077FF !important;
+    color: #fff !important;
+    border-color: #0077FF !important;
+    box-shadow: 0 0 20px rgba(0, 119, 255, 0.4);
+}
+
+.inst-link { color: #E1306C; }
+.inst-link:hover {
+    background: #E1306C !important;
+    color: #fff !important;
+    border-color: #E1306C !important;
+    box-shadow: 0 0 20px rgba(225, 48, 108, 0.4);
+}
+
+/* ==========================================================================
+   8. ПОДВАЛ (FOOTER)
+   ========================================================================== */
 .footer-card {
     display: flex;
     flex-direction: row;
@@ -289,11 +359,8 @@ p {
     border-radius: 30px;
 }
 
-.footer-left {
-    display: flex;
-    flex-direction: column;
-    gap: 5px;
-}
+.footer-left { display: flex; flex-direction: column; gap: 5px; }
+.footer-right { display: flex; flex-direction: column; align-items: flex-end; gap: 12px; }
 
 .footer-copyright {
     font-weight: 700;
@@ -320,29 +387,11 @@ p {
     letter-spacing: 0.5px;
 }
 
-.footer-right {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-end;
-    gap: 12px;
-}
+.footer-links { display: flex; gap: 20px; }
+.footer-links a { color: var(--text-muted); text-decoration: none; font-size: 0.85rem; transition: color 0.3s; }
+.footer-links a:hover { color: var(--text-main); }
 
-.footer-links {
-    display: flex;
-    gap: 20px;
-}
-
-.footer-links a {
-    color: var(--text-muted);
-    text-decoration: none;
-    font-size: 0.85rem;
-    transition: color 0.3s;
-}
-
-.footer-links a:hover {
-    color: var(--text-main);
-}
-
+/* Дизайнер */
 .designer-link {
     display: flex;
     flex-direction: column;
@@ -353,47 +402,29 @@ p {
     line-height: 1.2;
 }
 
-.designer-link:hover {
-    opacity: 1;
-    transform: translateY(-2px);
-}
+.designer-link:hover { opacity: 1; transform: translateY(-2px); }
 
 .designer-text {
     font-size: 0.75rem;
     color: #888;
     font-weight: 700;
     letter-spacing: 1px;
-    transition: color 0.3s ease;
 }
 
-.designer-link:hover .designer-text {
-    color: #fff;
-}
+.designer-link:hover .designer-text { color: #fff; }
+.designer-text .red-word { color: var(--accent-red); font-weight: 900; transition: all 0.3s ease; }
+.designer-link:hover .red-word { text-shadow: 0 0 15px rgba(239, 68, 68, 0.8); }
 
-.designer-text .red-word {
-    color: var(--accent-red);
-    font-weight: 900;
-    transition: all 0.3s ease;
-}
+.designer-city { font-size: 0.6rem; color: #555; transition: color 0.3s ease; }
+.designer-link:hover .designer-city { color: #999; }
 
-.designer-link:hover .red-word {
-    text-shadow: 0 0 15px rgba(239, 68, 68, 0.8);
-}
-
-.designer-city {
-    font-size: 0.6rem;
-    color: #555;
-    transition: color 0.3s ease;
-}
-
-.designer-link:hover .designer-city {
-    color: #999;
-}
-
-/* --- АДАПТИВ --- */
+/* ==========================================================================
+   9. АДАПТИВНОСТЬ
+   ========================================================================== */
 @media (max-width: 900px) {
     .span-8, .span-4, .span-6 { grid-column: span 12; }
     .row-span-2 { grid-row: span 1; }
+
     h1 { font-size: 2.5rem; }
     .tags-row { gap: 8px; }
     .hero-tag { font-size: 0.7rem; padding: 6px 12px; }
@@ -403,48 +434,7 @@ p {
         text-align: center;
         gap: 25px;
     }
-    .footer-left, .footer-right {
-        align-items: center;
-    }
-    .footer-copyright {
-        justify-content: center;
-    }
-}
 
-/* Эффекты для кнопок соцсетей */
-.social-link {
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 12px;
-    border-radius: 12px;
-    background: rgba(255, 255, 255, 0.03);
-    border: 1px solid rgba(255, 255, 255, 0.08);
-    text-decoration: none;
-}
-
-.yt-btn { color: #ff0000; }
-.vk-btn { color: #0077FF; }
-.inst-btn { color: #E1306C; }
-
-.yt-btn:hover {
-    background: #ff0000 !important;
-    color: #fff !important;
-    box-shadow: 0 0 20px rgba(255, 0, 0, 0.4);
-    border-color: #ff0000 !important;
-}
-
-.vk-btn:hover {
-    background: #0077FF !important;
-    color: #fff !important;
-    box-shadow: 0 0 20px rgba(0, 119, 255, 0.4);
-    border-color: #0077FF !important;
-}
-
-.inst-btn:hover {
-    background: #E1306C !important;
-    color: #fff !important;
-    box-shadow: 0 0 20px rgba(225, 48, 108, 0.4);
-    border-color: #E1306C !important;
+    .footer-left, .footer-right { align-items: center; }
+    .footer-copyright { justify-content: center; }
 }
