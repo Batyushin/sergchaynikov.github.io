@@ -1,7 +1,8 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;800;900&display=swap');
 
 :root {
-    --bg-deep: #030305;
+    /* Более глубокий, "богатый" темный цвет с едва уловимым синим подтоном */
+    --bg-deep: #040408;
     --accent-purple: #8b5cf6;
     --accent-blue: #3b82f6;
     --accent-green: #22c55e;
@@ -10,7 +11,11 @@
     --text-muted: #8892b0;
 }
 
-* { margin: 0; padding: 0; box-sizing: border-box; }
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
 
 body {
     font-family: 'Montserrat', sans-serif;
@@ -24,31 +29,37 @@ body {
     z-index: 0;
 }
 
-/* --- ФОНОВЫЕ СФЕРЫ (СВЕЧЕНИЕ) --- */
-body::before, body::after {
+/* --- ФОНОВЫЕ СФЕРЫ (ГЛУБОКОЕ СВЕЧЕНИЕ) --- */
+.bg-glow::before,
+.bg-glow::after {
     content: '';
     position: fixed;
     border-radius: 50%;
-    filter: blur(120px);
+    filter: blur(140px); /* Увеличили размытие для большей мягкости */
     z-index: -1;
-    opacity: 0.6;
+    opacity: 0.55;
     pointer-events: none;
 }
 
-body::before {
+.bg-glow::before {
     width: 50vw;
     height: 50vw;
-    background: rgba(139, 92, 246, 0.4);
+    background: rgba(139, 92, 246, 0.35); /* Фиолетовое свечение слева */
     top: -10%;
     left: -10%;
 }
 
-body::after {
-    width: 40vw;
-    height: 40vw;
-    background: rgba(59, 130, 246, 0.4);
+.bg-glow::after {
+    width: 45vw;
+    height: 45vw;
+    background: rgba(59, 130, 246, 0.35); /* Синее свечение справа */
     bottom: -10%;
     right: -10%;
+}
+
+.container {
+    max-width: 1100px;
+    margin: 0 auto;
 }
 
 .bento-grid {
@@ -56,58 +67,64 @@ body::after {
     grid-template-columns: repeat(12, 1fr);
     grid-auto-rows: minmax(180px, auto);
     gap: 20px;
-    max-width: 1100px;
-    margin: 0 auto;
 }
 
-/* --- БАЗОВОЕ СТЕКЛО --- */
+/* --- УЛЬТРА-ПРОЗРАЧНОЕ СТЕКЛО --- */
 .bento-card {
-    background: linear-gradient(135deg, rgba(255, 255, 255, 0.08) 0%, rgba(255, 255, 255, 0.01) 100%);
-    backdrop-filter: blur(24px) saturate(150%);
-    -webkit-backdrop-filter: blur(24px) saturate(150%);
-    border: 1px solid rgba(255, 255, 255, 0.05);
-    border-top: 1px solid rgba(255, 255, 255, 0.15);
-    border-left: 1px solid rgba(255, 255, 255, 0.1);
+    /* Почти прозрачная заливка */
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.04) 0%, rgba(255, 255, 255, 0.0) 100%);
+    /* Сильное размытие фона (морозное стекло) */
+    backdrop-filter: blur(32px) saturate(150%);
+    -webkit-backdrop-filter: blur(32px) saturate(150%);
+    /* Тонкие блики на гранях */
+    border: 1px solid rgba(255, 255, 255, 0.03);
+    border-top: 1px solid rgba(255, 255, 255, 0.12);
+    border-left: 1px solid rgba(255, 255, 255, 0.08);
     border-radius: 30px;
     padding: 40px;
     display: flex;
     flex-direction: column;
     position: relative;
     overflow: hidden;
-    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.05);
+    /* Внутренняя и внешняя тень для объема */
+    box-shadow: 0 10px 40px 0 rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.05);
     transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.4s ease, border-color 0.4s ease;
+}
+
+/* Блик, пробегающий по диагонали */
+.bento-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: -100%; width: 50%; height: 100%;
+    background: linear-gradient(to right, transparent, rgba(255,255,255,0.04), transparent);
+    transform: skewX(-20deg);
+    transition: 0.7s ease;
+}
+.bento-card:hover::before {
+    left: 150%;
 }
 
 /* Общий неон при наведении */
 .bento-card:hover {
     transform: translateY(-5px);
     border-color: rgba(139, 92, 246, 0.5);
-    box-shadow: 0 15px 40px 0 rgba(0, 0, 0, 0.5),
+    box-shadow: 0 15px 40px 0 rgba(0, 0, 0, 0.7),
                 0 0 30px rgba(139, 92, 246, 0.3),
                 inset 0 1px 0 rgba(255, 255, 255, 0.2);
 }
 
-/* Цветные неоны для карточек */
+/* Цветные неоны для специфичных карточек */
 .glow-blue:hover {
     border-color: rgba(59, 130, 246, 0.6);
-    box-shadow: 0 15px 40px 0 rgba(0, 0, 0, 0.5), 0 0 40px rgba(59, 130, 246, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.2);
+    box-shadow: 0 15px 40px 0 rgba(0, 0, 0, 0.7), 0 0 40px rgba(59, 130, 246, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.2);
 }
 
 .glow-green:hover {
     border-color: rgba(34, 197, 94, 0.6);
-    box-shadow: 0 15px 40px 0 rgba(0, 0, 0, 0.5), 0 0 40px rgba(34, 197, 94, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.2);
+    box-shadow: 0 15px 40px 0 rgba(0, 0, 0, 0.7), 0 0 40px rgba(34, 197, 94, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.2);
 }
 
-.bento-card::before {
-    content: '';
-    position: absolute;
-    top: 0; left: -100%; width: 50%; height: 100%;
-    background: linear-gradient(to right, transparent, rgba(255,255,255,0.06), transparent);
-    transform: skewX(-20deg);
-    transition: 0.7s ease;
-}
-.bento-card:hover::before { left: 150%; }
-
+/* Размеры в сетке */
 .span-8 { grid-column: span 8; }
 .span-4 { grid-column: span 4; }
 .span-6 { grid-column: span 6; }
@@ -134,9 +151,24 @@ h1 {
     background: linear-gradient(135deg, #fff 0%, #a5b4fc 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
-    text-shadow: 0 4px 20px rgba(0,0,0,0.3);
+    text-shadow: 0 4px 20px rgba(0,0,0,0.4);
 }
 
+h2 {
+    font-size: 1.4rem;
+    margin-bottom: 15px;
+    font-weight: 800;
+    line-height: 1.3;
+    color: #fff;
+}
+
+p {
+    color: rgba(255,255,255,0.7);
+    font-weight: 600;
+    font-size: 0.95rem;
+}
+
+/* Теги */
 .tags-row {
     display: flex;
     flex-wrap: wrap;
@@ -147,24 +179,21 @@ h1 {
 .hero-tag {
     display: inline-block;
     padding: 8px 16px;
-    background: rgba(255, 255, 255, 0.05);
-    backdrop-filter: blur(10px);
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    background: rgba(255, 255, 255, 0.02);
+    backdrop-filter: blur(16px);
+    border: 1px solid rgba(255, 255, 255, 0.06);
     border-radius: 20px;
     color: #fff;
     font-size: 0.8rem;
     font-weight: 800;
     text-transform: uppercase;
     letter-spacing: 1px;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
 }
-
-h2 { font-size: 1.4rem; margin-bottom: 15px; font-weight: 800; line-height: 1.3; color: #fff;}
-p { color: rgba(255,255,255,0.7); font-weight: 600; font-size: 0.95rem; }
 
 /* --- БЛОК КОНТАКТОВ --- */
 .contact-card {
-    background: linear-gradient(180deg, rgba(255, 255, 255, 0.08) 0%, rgba(255, 255, 255, 0.02) 100%);
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.05) 0%, rgba(255, 255, 255, 0.0) 100%);
     align-items: center;
     justify-content: center;
     text-align: center;
@@ -173,15 +202,14 @@ p { color: rgba(255,255,255,0.7); font-weight: 600; font-size: 0.95rem; }
 .avatar-placeholder {
     width: 120px; height: 120px;
     border-radius: 50%;
-    background: linear-gradient(135deg, rgba(255,255,255,0.1), rgba(255,255,255,0));
-    border: 1px solid rgba(255,255,255,0.2);
+    background: linear-gradient(135deg, rgba(255,255,255,0.08), rgba(255,255,255,0));
+    border: 1px solid rgba(255,255,255,0.15);
     margin-bottom: 20px;
     padding: 3px;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
     transition: all 0.4s ease;
 }
 
-/* Неон на аватаре при наведении на карточку */
 .contact-card:hover .avatar-placeholder {
     transform: scale(1.05);
     border-color: rgba(59, 130, 246, 0.8);
@@ -198,19 +226,26 @@ p { color: rgba(255,255,255,0.7); font-weight: 600; font-size: 0.95rem; }
 }
 
 .action-btn {
-    display: flex; align-items: center; justify-content: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     gap: 12px;
-    width: 100%; padding: 15px; margin-top: 10px;
+    width: 100%;
+    padding: 15px;
+    margin-top: 10px;
     border-radius: 15px;
-    text-decoration: none; font-weight: 800; font-size: 0.95rem;
+    text-decoration: none;
+    font-weight: 800;
+    font-size: 0.95rem;
     transition: all 0.3s;
-    backdrop-filter: blur(10px);
+    backdrop-filter: blur(16px);
 }
-.btn-tg { background: rgba(42, 171, 238, 0.15); color: #2AABEE; border: 1px solid rgba(42, 171, 238, 0.3); }
-.btn-tg:hover { background: #2AABEE; color: #fff; box-shadow: 0 5px 20px rgba(42, 171, 238, 0.4); }
 
-.btn-wa { background: rgba(37, 211, 102, 0.15); color: #25D366; border: 1px solid rgba(37, 211, 102, 0.3); }
-.btn-wa:hover { background: #25D366; color: #fff; box-shadow: 0 5px 20px rgba(37, 211, 102, 0.4); }
+.btn-tg { background: rgba(42, 171, 238, 0.1); color: #2AABEE; border: 1px solid rgba(42, 171, 238, 0.2); }
+.btn-tg:hover { background: #2AABEE; color: #fff; box-shadow: 0 5px 20px rgba(42, 171, 238, 0.4); border-color: #2AABEE; }
+
+.btn-wa { background: rgba(37, 211, 102, 0.1); color: #25D366; border: 1px solid rgba(37, 211, 102, 0.2); }
+.btn-wa:hover { background: #25D366; color: #fff; box-shadow: 0 5px 20px rgba(37, 211, 102, 0.4); border-color: #25D366;}
 
 .phone-link {
     color: #fff;
@@ -227,12 +262,12 @@ p { color: rgba(255,255,255,0.7); font-weight: 600; font-size: 0.95rem; }
 .card-icon {
     font-size: 2.5rem;
     margin-bottom: 20px;
-    background: rgba(255,255,255,0.05);
+    background: rgba(255,255,255,0.03);
     width: 70px; height: 70px;
     display: flex; align-items: center; justify-content: center;
     border-radius: 20px;
-    border: 1px solid rgba(255,255,255,0.1);
-    box-shadow: inset 0 2px 5px rgba(255,255,255,0.1);
+    border: 1px solid rgba(255,255,255,0.08);
+    box-shadow: inset 0 2px 5px rgba(255,255,255,0.05);
 }
 
 .service-list { list-style: none; margin-top: 20px; }
@@ -374,4 +409,26 @@ p { color: rgba(255,255,255,0.7); font-weight: 600; font-size: 0.95rem; }
     .footer-copyright {
         justify-content: center;
     }
+}
+
+/* --- СТИЛИ ДЛЯ ЛОГОТИПОВ --- */
+.header-logo {
+    width: 80px; /* Размер логотипа в шапке */
+    height: auto;
+    margin-bottom: 20px;
+    filter: drop-shadow(0 0 15px rgba(255, 255, 255, 0.1));
+    display: block;
+}
+
+.footer-logo-wrap {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 5px;
+}
+
+.footer-mini-logo {
+    width: 28px; /* Размер логотипа в подвале */
+    height: auto;
+    opacity: 0.8;
 }
