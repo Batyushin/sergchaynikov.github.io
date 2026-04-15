@@ -439,11 +439,12 @@ p {
 .designer-link {
     display: flex;
     flex-direction: column;
-    align-items: flex-end;
+    align-items: center; /* Центрируем тексты друг относительно друга */
     text-decoration: none;
-    opacity: 0.4;
+    opacity: 0.5;
     transition: all 0.3s ease;
     line-height: 1.2;
+    margin-top: 70px; /* Немного опускаем весь блок ниже */
 }
 
 .designer-link:hover, .designer-link:active { opacity: 1; transform: translateY(-2px); }
