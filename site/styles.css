@@ -85,7 +85,9 @@ body {
 
 .span-12 { grid-column: span 12; }
 .span-8 { grid-column: span 8; }
+.span-7 { grid-column: span 7; } /* Добавили для текста */
 .span-6 { grid-column: span 6; }
+.span-5 { grid-column: span 5; } /* Добавили для видео */
 .span-4 { grid-column: span 4; }
 .row-span-2 { grid-row: span 2; }
 
@@ -397,19 +399,40 @@ p {
 .inst-link:hover, .inst-link:active { background: #E1306C !important; color: #fff !important; border-color: #E1306C !important; box-shadow: 0 0 20px rgba(225, 48, 108, 0.4); }
 
 /* ==========================================================================
-   11. ПОДВАЛ (FOOTER)
+   11. ПОДВАЛ (FAT FOOTER)
    ========================================================================== */
 .footer-card {
+    display: flex;
+    flex-direction: column; /* Теперь это колонка */
+    padding: 40px 40px 30px !important; /* Вернули нормальные отступы для большого блока */
+    border-radius: 32px;
+    position: relative;
+    z-index: 2;
+    min-height: auto !important;
+    height: fit-content;
+    align-self: start !important;
+}
+
+.footer-top {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 40px;
+    width: 100%;
+}
+
+.footer-divider {
+    width: 100%;
+    height: 1px;
+    background: rgba(255, 255, 255, 0.08); /* Полупрозрачная стеклянная линия */
+    margin: 35px 0 25px 0; /* Отступы сверху и снизу от линии */
+}
+
+.footer-bottom {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
-    padding: 16px 30px !important; /* Тонкая и аккуратная панель */
-    border-radius: 24px;
-    position: relative;
-    z-index: 2;
-    min-height: auto !important; /* Сбрасываем 160px специально для подвала */
-    height: fit-content;
+    width: 100%;
 }
 
 .footer-left {
@@ -421,7 +444,7 @@ p {
 .footer-right {
     display: flex;
     flex-direction: column;
-    align-items: flex-end; /* Прижимает весь блок подписи к правому краю */
+    align-items: flex-end;
     gap: 8px;
 }
 
@@ -449,29 +472,13 @@ p {
     font-family: monospace;
 }
 
-.footer-links {
-    display: flex;
-    gap: 20px;
-}
-
-.footer-links a {
-    color: var(--text-muted);
-    text-decoration: none;
-    font-size: 0.85rem;
-    transition: color 0.3s;
-}
-
-.footer-links a:hover {
-    color: var(--text-main);
-}
-
 /* Настройки твоей подписи */
 .designer-link {
     display: flex;
     flex-direction: column;
-    align-items: center; /* Центрирует "from Lugansk" под "DESIGNED BY ReD" */
+    align-items: center;
     text-decoration: none;
-    opacity: 0.75; /* Чуть ярче без наведения */
+    opacity: 0.75;
     transition: all 0.3s ease;
     line-height: 1.2;
 }
@@ -484,7 +491,7 @@ p {
 
 .designer-text {
     font-size: 0.75rem;
-    color: #a3a3a3; /* Чуть светлее по умолчанию */
+    color: #a3a3a3;
     font-weight: 700;
     letter-spacing: 1px;
 }
@@ -507,7 +514,7 @@ p {
 
 .designer-city {
     font-size: 0.6rem;
-    color: #777; /* Чуть светлее по умолчанию */
+    color: #777;
     transition: color 0.3s ease;
 }
 
@@ -517,29 +524,72 @@ p {
 }
 
 /* ==========================================================================
-   12. АДАПТИВНОСТЬ
+   12. СТИЛИ ДЛЯ СПИСКОВ В НИЖНЕМ БЛОКЕ (ССЫЛКИ)
+   ========================================================================== */
+.service-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.service-list li {
+    position: relative;
+    padding-left: 20px;
+    margin-bottom: 10px;
+    font-weight: 500;
+    font-size: 1rem;
+    line-height: 1.4;
+}
+
+.service-list li::before {
+    content: '•';
+    position: absolute;
+    left: 0;
+    color: var(--text-muted); /* Сделал маркеры более нейтральными */
+    font-size: 1.2rem;
+    line-height: 1;
+    top: 0px;
+}
+
+/* Стили для ссылок внутри списков */
+.service-list a {
+    color: rgba(255, 255, 255, 0.75);
+    text-decoration: none;
+    transition: all 0.3s ease;
+    display: inline-block;
+}
+
+/* Ховер-эффект: текст белеет и чуть сдвигается вправо */
+.service-list a:hover {
+    color: #fff;
+    transform: translateX(5px);
+}
+
+/* ==========================================================================
+   13. АДАПТИВНОСТЬ
    ========================================================================== */
 @media (max-width: 920px) {
-    .span-8, .span-6, .span-4 { grid-column: span 12; }
+    .span-8, .span-7, .span-6, .span-5, .span-4 { grid-column: span 12; }
     .row-span-2 { grid-row: span 1; }
+
     h1 { font-size: 2.5rem; }
     .tags-row { gap: 8px; }
     .hero-tag { font-size: 0.7rem; padding: 6px 12px; }
 
-    /* Оптимизация отступов на мобильных устройствах */
-    .bento-card { padding: 28px 24px; }
+    .bento-card { padding: 28px 24px !important; }
 
     .details-grid { grid-template-columns: 1fr; gap: 15px; }
     .detail-value { font-size: 1rem; }
 
-    .footer-card {
+    /* Адаптивность для нового подвала */
+    .footer-bottom {
         flex-direction: column;
         text-align: center;
         gap: 25px;
     }
 
     .footer-left, .footer-right { align-items: center; }
-    .footer-copyright { justify-content: center; }
-
+    .footer-copyright { justify-content: center; text-align: center; }
     .designer-link { align-items: center; }
 }
+
