@@ -5,7 +5,7 @@
 /* ==========================================================================
    1. ПЕРЕМЕННЫЕ И ШРИФТЫ
    ========================================================================== */
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;800;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;800;900&display=swap');
 
 :root {
     --bg-deep: #040408;
@@ -98,7 +98,7 @@ body {
     -webkit-backdrop-filter: blur(48px) saturate(180%);
     border: 1px solid rgba(255, 255, 255, 0.12);
     border-radius: 32px;
-    padding: 48px;
+    padding: 36px; /* Уменьшено с 48px, чтобы текст "дышал" в ширину */
     display: flex;
     flex-direction: column;
     position: relative;
@@ -109,7 +109,7 @@ body {
     cursor: pointer;
 }
 
-/* Мягкая пролетающая молния (как было раньше, не бьет по глазам) */
+/* Мягкая пролетающая молния */
 .bento-card::before {
     content: '';
     position: absolute;
@@ -148,7 +148,7 @@ body {
 .icon-card { justify-content: flex-start; }
 
 /* Специфичный класс для уменьшения отступов внутри конкретных карточек (Контакты/Офис) */
-.tight-card { padding: 30px !important; }
+.tight-card { padding: 28px !important; }
 
 /* ==========================================================================
    5. ТИПОГРАФИКА
@@ -166,7 +166,7 @@ h1 {
 }
 
 h2 {
-    font-size: 1.4rem;
+    font-size: 1.55rem; /* Увеличено для лучшей читаемости */
     margin-bottom: 15px;
     font-weight: 800;
     line-height: 1.3;
@@ -175,10 +175,11 @@ h2 {
 }
 
 p {
-    color: rgba(255,255,255,0.7);
-    font-weight: 600;
-    font-size: 0.95rem;
+    color: rgba(255,255,255,0.75);
+    font-weight: 500; /* Сделал чуть тоньше, чтобы текст не казался жирным пятном */
+    font-size: 1.05rem; /* Увеличено, чтобы текст был крупнее */
     position: relative; z-index: 2;
+    line-height: 1.6;
 }
 
 .pre-title {
@@ -322,18 +323,17 @@ p {
    8. ИНЖЕНЕРНЫЕ ИКОНКИ (Квадратные)
    ========================================================================== */
 .card-icon {
-    width: 60px;
-    height: 60px;
+    font-size: 1.6rem;
+    margin-bottom: 20px;
+    background: rgba(255,255,255,0.03);
+    width: 56px; /* Чуть увеличили, чтобы гармонировало с текстом */
+    height: 56px;
     display: flex;
     align-items: center;
     justify-content: center;
     border-radius: 14px;
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    background: rgba(255, 255, 255, 0.03);
-    font-size: 1.8rem;
-    flex-shrink: 0;
-    box-shadow: inset 0 2px 5px rgba(255, 255, 255, 0.02);
-    margin-bottom: 15px;
+    border: 1px solid rgba(255,255,255,0.08);
+    box-shadow: inset 0 2px 5px rgba(255,255,255,0.05);
     position: relative; z-index: 2;
 }
 
@@ -344,10 +344,10 @@ p {
     display: flex; align-items: center; gap: 15px; margin-bottom: 25px;
     position: relative; z-index: 2;
 }
-.card-header-inline h2 { margin: 0; font-size: 1.3rem; font-weight: 800; }
+.card-header-inline h2 { margin: 0; font-size: 1.4rem; font-weight: 800; }
 
 /* ==========================================================================
-   9. РЕКВИЗИТЫ ОРГАНИЗАЦИИ (Крупный шрифт)
+   9. РЕКВИЗИТЫ ОРГАНИЗАЦИИ
    ========================================================================== */
 .details-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px 40px; position: relative; z-index: 2;}
 .details-group h3 { font-size: 0.8rem; text-transform: uppercase; letter-spacing: 1.5px; color: var(--accent-blue); margin-bottom: 15px; opacity: 0.8; font-weight: 800;}
@@ -478,7 +478,8 @@ p {
     .tags-row { gap: 8px; }
     .hero-tag { font-size: 0.7rem; padding: 6px 12px; }
 
-    .bento-card { padding: 32px 24px; }
+    /* Оптимизация отступов на мобильных устройствах */
+    .bento-card { padding: 28px 24px; }
 
     .details-grid { grid-template-columns: 1fr; gap: 15px; }
     .detail-value { font-size: 1rem; }
