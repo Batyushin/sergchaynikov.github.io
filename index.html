@@ -115,58 +115,75 @@
         element.style.cursor = 'default';
     }
 
-// === АВТОМАТИЧЕСКАЯ ЗАГРУЗКА ВИДЕО С КАНАЛА ===
+    // === АВТОМАТИЧЕСКАЯ ЗАГРУЗКА ВИДЕО С КАНАЛА (НАДЕЖНАЯ ВЕРСИЯ) ===
     document.addEventListener('DOMContentLoaded', () => {
         const videoBox = document.getElementById('random-video-box');
         const videoTitle = document.getElementById('random-video-title');
-        const videoTypeBadge = document.getElementById('random-video-type'); // Ищем наш бейдж
+        const videoTypeBadge = document.getElementById('random-video-type');
 
-        // Твой ID канала
+        // Твой реальный системный ID канала на YouTube
         const CHANNEL_ID = 'UCgy_CAU2wOdPYQEtAy0aDBw';
 
         if (videoBox && videoTitle) {
             const rssUrl = encodeURIComponent(`https://www.youtube.com/feeds/videos.xml?channel_id=${CHANNEL_ID}`);
             const apiUrl = `https://api.rss2json.com/v1/api.json?rss_url=${rssUrl}`;
 
-            videoTitle.textContent = "Загружаем видео...";
+            videoTitle.textContent = "Загружаем свежее видео...";
 
             fetch(apiUrl)
-                .then(response => response.json())
+                .then(response => {
+                    if (!response.ok) throw new Error('Ошибка сети');
+                    return response.json();
+                })
                 .then(data => {
                     if (data.status === 'ok' && data.items.length > 0) {
                         const videos = data.items;
                         const randomVideo = videos[Math.floor(Math.random() * videos.length)];
 
-                        // 1. ИСПРАВЛЯЕМ ОШИБКУ ПЛЕЕРА: отрезаем мусор типа &feature=youtu.be
-                        const videoId = randomVideo.link.split('v=')[1].split('&')[0];
+                        // БРОНЕБОЙНЫЙ СПОСОБ: Достаем ID видео из системного GUID
+                        let videoId = '';
+                        if (randomVideo.guid && randomVideo.guid.includes('yt:video:')) {
+                            videoId = randomVideo.guid.split('yt:video:')[1];
+                        } else {
+                            // Запасной вариант для нестандартных ссылок
+                            const match = randomVideo.link.match(/(?:v=|\/shorts\/|youtu\.be\/)([^&\n?#]+)/);
+                            if (match) videoId = match[1];
+                        }
 
-                        // 2. ИСПРАВЛЯЕМ КАРТИНКУ: Берем надежное превью, которое отдает сам RSS
-                        // Если его вдруг нет, берем hqdefault (он есть всегда)
-                        const thumbnailUrl = randomVideo.thumbnail || `https://img.youtube.com/vi/${videoId}/hqdefault.jpg`;
+                        if (!videoId) throw new Error('Не удалось найти ID');
+
+                        // Подставляем обложку
+                        const thumbnailUrl = randomVideo.thumbnail || `https://img.youtube.com/vi/${videoId}/maxresdefault.jpg`;
                         videoBox.style.backgroundImage = `url('${thumbnailUrl}')`;
 
                         videoTitle.textContent = randomVideo.title;
 
-                        // 3. УМНЫЙ ТИП ВИДЕО: проверяем, есть ли слово shorts в названии
+                        // Проверяем, Shorts это или длинное видео
                         if (videoTypeBadge) {
-                            if (randomVideo.title.toLowerCase().includes('shorts')) {
+                            if (randomVideo.title.toLowerCase().includes('shorts') || randomVideo.link.includes('/shorts/')) {
                                 videoTypeBadge.textContent = 'Shorts';
                             } else {
                                 videoTypeBadge.textContent = 'Видео';
                             }
                         }
 
-                        // Запуск плеера
+                        // Вешаем клик для запуска плеера
                         videoBox.onclick = function() {
                             loadYTVideo(this, videoId);
                         };
                     } else {
-                        videoTitle.textContent = "Смотрите видео на канале";
+                        throw new Error('Нет данных в RSS ленте');
                     }
                 })
                 .catch(error => {
-                    console.error("Ошибка загрузки видео:", error);
-                    videoTitle.textContent = "Перейти на канал";
+                    console.error("Сработала защита API:", error);
+                    // Изящный фоллбэк: если сервис тормозит, делаем карточку ссылкой на канал
+                    videoTitle.textContent = "Смотреть наши видео на YouTube";
+                    videoBox.style.backgroundImage = "none";
+                    videoBox.style.background = "rgba(255,255,255,0.05)";
+                    videoBox.onclick = function() {
+                        window.open(`https://www.youtube.com/channel/${CHANNEL_ID}`, '_blank');
+                    };
                 });
         }
     });
