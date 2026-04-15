@@ -1,8 +1,4 @@
 /* ==========================================================================
-   site/styles.css — ЛЮКСОВЫЙ СТЕКЛЯННЫЙ ДИЗАЙН 2026 (ПОЛНАЯ ВЕРСИЯ)
-   ========================================================================== */
-
-/* ==========================================================================
    1. ПЕРЕМЕННЫЕ И ШРИФТЫ
    ========================================================================== */
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;800;900&display=swap');
@@ -72,7 +68,7 @@ body {
    3. СЕТКА BENTO И СТРУКТУРА
    ========================================================================== */
 .container {
-    max-width: 1180px; /* Расширено для люксового дизайна */
+    max-width: 1100px;
     margin: 0 auto;
 }
 
@@ -80,7 +76,7 @@ body {
     display: grid;
     grid-template-columns: repeat(12, 1fr);
     grid-auto-rows: minmax(180px, auto);
-    gap: 24px; /* Увеличенный отступ из второго варианта */
+    gap: 20px;
 }
 
 .span-12 { grid-column: span 12; }
@@ -90,65 +86,58 @@ body {
 .row-span-2 { grid-row: span 2; }
 
 /* ==========================================================================
-   4. БАЗОВАЯ КАРТОЧКА BENTO (ТЯЖЕЛОЕ СТЕКЛО + МЯГКАЯ МОЛНИЯ)
+   4. БАЗОВАЯ КАРТОЧКА BENTO (ЭФФЕКТ СТЕКЛА)
    ========================================================================== */
 .bento-card {
-    background: linear-gradient(145deg, rgba(255, 255, 255, 0.085) 0%, rgba(139, 92, 246, 0.025) 100%);
-    backdrop-filter: blur(48px) saturate(180%);
-    -webkit-backdrop-filter: blur(48px) saturate(180%);
-    border: 1px solid rgba(255, 255, 255, 0.12);
-    border-radius: 32px;
-    padding: 48px;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.04) 0%, rgba(255, 255, 255, 0.0) 100%);
+    backdrop-filter: blur(32px) saturate(150%);
+    -webkit-backdrop-filter: blur(32px) saturate(150%);
+    border: 1px solid rgba(255, 255, 255, 0.03);
+    border-top: 1px solid rgba(255, 255, 255, 0.12);
+    border-left: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 30px;
+    padding: 40px;
     display: flex;
     flex-direction: column;
     position: relative;
     overflow: hidden;
-    box-shadow: 0 25px 60px -15px rgba(0, 0, 0, 0.6),
-                inset 0 2px 0 rgba(255, 255, 255, 0.2);
-    transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
-    cursor: pointer;
+    box-shadow: 0 10px 40px 0 rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.05);
+    transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.4s ease, border-color 0.4s ease;
 }
 
-/* Мягкая пролетающая молния (как было раньше, не бьет по глазам) */
 .bento-card::before {
     content: '';
     position: absolute;
     top: 0; left: -100%; width: 50%; height: 100%;
-    background: linear-gradient(to right, transparent, rgba(255, 255, 255, 0.04), transparent);
+    background: linear-gradient(to right, transparent, rgba(255,255,255,0.04), transparent);
     transform: skewX(-20deg);
     transition: 0.7s ease;
-    pointer-events: none;
-    z-index: 1;
 }
 
+/* Эффекты при наведении и нажатии (мобильный неон) */
 .bento-card:hover::before { left: 150%; }
 
-/* Эффекты при наведении и нажатии (мощный неон из второго варианта) */
 .bento-card:hover, .bento-card:active {
-    transform: translateY(-8px);
+    transform: translateY(-5px);
     border-color: rgba(139, 92, 246, 0.5);
-    box-shadow: 0 35px 70px -10px rgba(139, 92, 246, 0.4),
-                inset 0 2px 0 rgba(255, 255, 255, 0.3);
+    box-shadow: 0 15px 40px 0 rgba(0, 0, 0, 0.7),
+                0 0 30px rgba(139, 92, 246, 0.3),
+                inset 0 1px 0 rgba(255, 255, 255, 0.2);
 }
 
 .glow-blue:hover, .glow-blue:active {
     border-color: rgba(59, 130, 246, 0.6);
-    box-shadow: 0 35px 70px -10px rgba(59, 130, 246, 0.4),
-                inset 0 2px 0 rgba(255, 255, 255, 0.3);
+    box-shadow: 0 15px 40px 0 rgba(0, 0, 0, 0.7), 0 0 40px rgba(59, 130, 246, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.2);
 }
 
 .glow-green:hover, .glow-green:active {
     border-color: rgba(34, 197, 94, 0.6);
-    box-shadow: 0 35px 70px -10px rgba(34, 197, 94, 0.4),
-                inset 0 2px 0 rgba(255, 255, 255, 0.3);
+    box-shadow: 0 15px 40px 0 rgba(0, 0, 0, 0.7), 0 0 40px rgba(34, 197, 94, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.2);
 }
 
 .hero-card { justify-content: center; }
 .contact-card { align-items: center; justify-content: center; text-align: center; }
 .icon-card { justify-content: flex-start; }
-
-/* Специфичный класс для уменьшения отступов внутри конкретных карточек (Контакты/Офис) */
-.tight-card { padding: 30px !important; }
 
 /* ==========================================================================
    5. ТИПОГРАФИКА
@@ -162,7 +151,6 @@ h1 {
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     text-shadow: 0 4px 20px rgba(0,0,0,0.4);
-    position: relative; z-index: 2;
 }
 
 h2 {
@@ -171,14 +159,12 @@ h2 {
     font-weight: 800;
     line-height: 1.3;
     color: #fff;
-    position: relative; z-index: 2;
 }
 
 p {
     color: rgba(255,255,255,0.7);
     font-weight: 600;
     font-size: 0.95rem;
-    position: relative; z-index: 2;
 }
 
 .pre-title {
@@ -188,7 +174,6 @@ p {
     text-transform: uppercase;
     letter-spacing: 4px;
     margin-bottom: 5px;
-    position: relative; z-index: 2;
 }
 
 /* ==========================================================================
@@ -199,7 +184,6 @@ p {
     flex-wrap: wrap;
     gap: 12px;
     margin-bottom: 25px;
-    position: relative; z-index: 2;
 }
 
 .hero-tag {
@@ -241,8 +225,9 @@ p {
 }
 
 /* ==========================================================================
-   7. КОМПОНЕНТЫ: АВАТАР И СВЯЗЬ
+   7. КОМПОНЕНТЫ: КОНТАКТЫ И СВЯЗЬ
    ========================================================================== */
+
 .avatar-placeholder {
     width: 120px;
     height: 120px;
@@ -258,7 +243,6 @@ p {
     overflow: visible;
     box-shadow: 0 10px 30px rgba(0,0,0,0.5);
     transition: all 0.4s ease;
-    z-index: 2;
 }
 
 .avatar-inner {
@@ -269,40 +253,32 @@ p {
     align-items: center;
     justify-content: center;
     background: rgba(255, 255, 255, 0.01);
+
+    /* Эмодзи стал чуточку меньше (5.2rem вместо 6rem) */
     font-size: 5.2rem;
-    transform: translateY(-5px) scale(1.0);
+    transform: translateY(-5px) scale(1.0); /* Теперь почти не вылезает в покое */
+
     filter: drop-shadow(0 10px 15px rgba(0,0,0,0.6));
     transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
+/* Кольцо светится сильнее при тапе или ховере */
 .contact-card:hover .avatar-placeholder, .contact-card:active .avatar-placeholder {
     border-color: rgba(59, 130, 246, 0.6);
     box-shadow: 0 0 30px rgba(59, 130, 246, 0.3);
 }
 
+/* Эмодзи «выпрыгивает» при тапе или ховере */
 .contact-card:hover .avatar-inner, .contact-card:active .avatar-inner {
     transform: translateY(-20px) scale(1.25);
     filter: drop-shadow(0 15px 20px rgba(0,0,0,0.8));
 }
 
-/* Умный Ховер для надписи "Контакты" */
-.contact-title-highlight {
-    transition: all 0.3s ease;
-}
-
-.contact-card:hover:not(:has(.action-btn:hover)):not(:has(.phone-link:hover)) .contact-title-highlight {
-    color: var(--accent-blue) !important;
-    text-shadow: 0 0 15px rgba(59, 130, 246, 0.5);
-    transform: translateX(4px);
-}
-
-/* Кнопки связи */
 .action-btn {
     display: flex; align-items: center; justify-content: center;
     gap: 12px; width: 100%; padding: 15px; margin-top: 10px;
     border-radius: 15px; text-decoration: none; font-weight: 800;
     font-size: 0.95rem; transition: all 0.3s; backdrop-filter: blur(16px);
-    position: relative; z-index: 2;
 }
 
 .btn-tg { background: rgba(42, 171, 238, 0.1); color: #2AABEE; border: 1px solid rgba(42, 171, 238, 0.2); }
@@ -314,58 +290,28 @@ p {
 .phone-link {
     color: #fff; text-decoration: none; font-weight: 800; font-size: 1.3rem;
     transition: color 0.3s; text-shadow: 0 2px 10px rgba(255,255,255,0.2);
-    position: relative; z-index: 2; display: inline-block;
 }
 .phone-link:hover { color: var(--accent-blue); }
 
 /* ==========================================================================
-   8. ИНЖЕНЕРНЫЕ ИКОНКИ (Квадратные)
+   8. УСЛУГИ И ИКОНКИ
    ========================================================================== */
 .card-icon {
-    width: 60px;
-    height: 60px;
+    font-size: 2.5rem;
+    margin-bottom: 20px;
+    background: rgba(255,255,255,0.03);
+    width: 70px;
+    height: 70px;
     display: flex;
     align-items: center;
     justify-content: center;
-    border-radius: 14px;
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    background: rgba(255, 255, 255, 0.03);
-    font-size: 1.8rem;
-    flex-shrink: 0;
-    box-shadow: inset 0 2px 5px rgba(255, 255, 255, 0.02);
-    margin-bottom: 15px;
-    position: relative; z-index: 2;
+    border-radius: 20px;
+    border: 1px solid rgba(255,255,255,0.08);
+    box-shadow: inset 0 2px 5px rgba(255,255,255,0.05);
 }
-
-.blue-icon { background: rgba(59, 130, 246, 0.1); border-color: rgba(59, 130, 246, 0.3); color: var(--accent-blue); }
-.neutral-icon { background: rgba(255, 255, 255, 0.05); border-color: rgba(255, 255, 255, 0.15); }
-
-.card-header-inline {
-    display: flex; align-items: center; gap: 15px; margin-bottom: 25px;
-    position: relative; z-index: 2;
-}
-.card-header-inline h2 { margin: 0; font-size: 1.3rem; font-weight: 800; }
 
 /* ==========================================================================
-   9. РЕКВИЗИТЫ ОРГАНИЗАЦИИ (Крупный шрифт)
-   ========================================================================== */
-.details-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px 40px; position: relative; z-index: 2;}
-.details-group h3 { font-size: 0.8rem; text-transform: uppercase; letter-spacing: 1.5px; color: var(--accent-blue); margin-bottom: 15px; opacity: 0.8; font-weight: 800;}
-.detail-item { margin-bottom: 15px; border-bottom: 1px solid rgba(255,255,255,0.05); padding-bottom: 8px; }
-.detail-label { font-size: 0.75rem; color: var(--text-muted); display: block; margin-bottom: 4px; font-weight: 600;}
-.detail-value { font-family: 'Montserrat', sans-serif; font-size: 1.1rem; color: #fff; font-weight: 700; letter-spacing: 0.3px;}
-
-.map-link-wrapper { text-decoration: none; color: inherit; display: block; position: relative; z-index: 2;}
-.btn-map {
-    display: inline-block; margin-top: 15px; padding: 8px 16px;
-    background: rgba(59, 130, 246, 0.1); border: 1px solid rgba(59, 130, 246, 0.3);
-    border-radius: 12px; color: var(--accent-blue); font-size: 0.7rem; font-weight: 800;
-    text-transform: uppercase; transition: 0.3s;
-}
-.bento-card:hover .btn-map { background: var(--accent-blue); color: #fff; }
-
-/* ==========================================================================
-   10. КНОПКИ СОЦСЕТЕЙ
+   9. КНОПКИ СОЦСЕТЕЙ
    ========================================================================== */
 .social-link-styled {
     display: flex;
@@ -381,7 +327,6 @@ p {
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     background: rgba(255, 255, 255, 0.02);
     border: 1px solid rgba(255, 255, 255, 0.08);
-    position: relative; z-index: 2;
 }
 
 .social-link-styled:hover, .social-link-styled:active { transform: scale(1.02); }
@@ -396,7 +341,7 @@ p {
 .inst-link:hover, .inst-link:active { background: #E1306C !important; color: #fff !important; border-color: #E1306C !important; box-shadow: 0 0 20px rgba(225, 48, 108, 0.4); }
 
 /* ==========================================================================
-   11. ПОДВАЛ (FOOTER)
+   10. ПОДВАЛ (FOOTER)
    ========================================================================== */
 .footer-card {
     display: flex;
@@ -406,7 +351,6 @@ p {
     padding: 30px 40px;
     margin-top: 20px;
     border-radius: 30px;
-    position: relative; z-index: 2;
 }
 
 .footer-left { display: flex; flex-direction: column; gap: 5px; }
@@ -469,19 +413,14 @@ p {
 .designer-link:hover .designer-city, .designer-link:active .designer-city { color: #999; }
 
 /* ==========================================================================
-   12. АДАПТИВНОСТЬ
+   11. АДАПТИВНОСТЬ
    ========================================================================== */
-@media (max-width: 920px) {
-    .span-8, .span-6, .span-4 { grid-column: span 12; }
+@media (max-width: 900px) {
+    .span-8, .span-4, .span-6 { grid-column: span 12; }
     .row-span-2 { grid-row: span 1; }
     h1 { font-size: 2.5rem; }
     .tags-row { gap: 8px; }
     .hero-tag { font-size: 0.7rem; padding: 6px 12px; }
-
-    .bento-card { padding: 32px 24px; }
-
-    .details-grid { grid-template-columns: 1fr; gap: 15px; }
-    .detail-value { font-size: 1rem; }
 
     .footer-card {
         flex-direction: column;
@@ -494,3 +433,10 @@ p {
 
     .designer-link { align-items: center; }
 }
+
+/* Эффект для заголовка при наведении на карточку */
+    .contact-card:hover .contact-title-highlight {
+        color: var(--accent-blue) !important;
+        text-shadow: 0 0 15px rgba(59, 130, 246, 0.5);
+        transform: translateX(4px);
+    }
