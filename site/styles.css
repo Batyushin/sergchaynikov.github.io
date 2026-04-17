@@ -310,6 +310,7 @@ p { color: rgba(255,255,255,0.75); font-weight: 500; font-size: 1.05rem; positio
 .footer-top > div:nth-child(1) .service-list li::before { color: var(--accent-purple); }
 .footer-top > div:nth-child(2) .service-list li::before { color: var(--accent-blue); }
 .footer-top > div:nth-child(3) .service-list li::before { color: var(--accent-green); }
+.footer-top > div:nth-child(4) .service-list li::before { color: var(--accent-red); }
 
 .service-list a { color: rgba(255, 255, 255, 0.75); text-decoration: none; transition: all 0.3s ease; display: inline-block; }
 .service-list a:hover { color: #fff; transform: translateX(5px); }
