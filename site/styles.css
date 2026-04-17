@@ -315,55 +315,66 @@ p { color: rgba(255,255,255,0.75); font-weight: 500; font-size: 1.05rem; positio
 .service-list a:hover { color: #fff; transform: translateX(5px); }
 
 /* ==========================================================================
-   12. АДАПТИВНОСТЬ И ОПТИМИЗАЦИЯ ДЛЯ IOS SAFARI
-   ========================================================================== */
-@media (max-width: 920px) {
-    .span-8, .span-7, .span-6, .span-5, .span-4 { grid-column: span 12; }
-    .row-span-2 { grid-row: span 1; }
+    12. АДАПТИВНОСТЬ И ОПТИМИЗАЦИЯ ДЛЯ IOS SAFARI
+    ========================================================================== */
+ @media (max-width: 920px) {
+     .span-8, .span-7, .span-6, .span-5, .span-4 { grid-column: span 12; }
+     .row-span-2 { grid-row: span 1; }
 
-    h1 { font-size: 2.5rem; }
-    .tags-row { gap: 8px; }
-    .hero-tag { font-size: 0.7rem; padding: 6px 12px; }
+     h1 { font-size: 2.5rem; }
+     .tags-row { gap: 8px; }
+     .hero-tag { font-size: 0.7rem; padding: 6px 12px; }
 
-    /* Адаптивность для подвала */
-    .footer-bottom { flex-direction: column; text-align: center; gap: 25px; }
-    .footer-left, .footer-right { align-items: center; }
-    .footer-copyright { justify-content: center; text-align: center; }
-    .designer-link { align-items: center; }
+     /* Адаптивность для подвала */
+     .footer-bottom { flex-direction: column; text-align: center; gap: 25px; }
+     .footer-left, .footer-right { align-items: center; }
+     .footer-copyright { justify-content: center; text-align: center; }
+     .designer-link { align-items: center; }
 
-    /* =========================================================
-       СКОРАЯ ПОМОЩЬ ДЛЯ SAFARI (ОТКЛЮЧАЕМ ТЯЖЕЛЫЙ РЕНДЕР)
-       ========================================================= */
+     /* =========================================================
+        СКОРАЯ ПОМОЩЬ ДЛЯ SAFARI (ОТКЛЮЧАЕМ ТЯЖЕЛЫЙ РЕНДЕР И БАГИ)
+        ========================================================= */
 
-    /* 1. УБИРАЕМ ФОНОВЫЕ СФЕРЫ (Главный тормоз) */
-    .bg-glow { display: none !important; }
+     /* 1. УБИРАЕМ ФОНОВЫЕ СФЕРЫ (Главный тормоз) */
+     .bg-glow { display: none !important; }
 
-    /* 2. УБИРАЕМ СКРЫТЫЕ МОЛНИИ И НЕОНОВЫЕ ПЯТНА */
-    .bento-card::before { display: none !important; }
-    .neon-glow-left { display: none !important; }
+     /* 2. УБИРАЕМ СКРЫТЫЕ МОЛНИИ И НЕОНОВЫЕ ПЯТНА */
+     .bento-card::before { display: none !important; }
+     .neon-glow-left { display: none !important; }
 
-    /* 3. ОТКЛЮЧАЕМ МАСКИ НА ФОТОГРАФИЯХ */
-    /* Маска + стекло = лаги. Заменяем маску на простую полупрозрачность */
-    .hero-bg, .contact-bg-mask {
-        -webkit-mask-image: none !important;
-        mask-image: none !important;
-        opacity: 0.15 !important;
-    }
+     /* 3. ОТКЛЮЧАЕМ МАСКИ НА ФОТОГРАФИЯХ */
+     .hero-bg, .contact-bg-mask {
+         -webkit-mask-image: none !important;
+         mask-image: none !important;
+         opacity: 0.15 !important;
+     }
 
-    /* 4. УПРОЩАЕМ ТЕНИ И АНИМАЦИИ */
-    .hero-tag:first-child { animation: none !important; border-color: rgba(139, 92, 246, 0.5) !important; }
-    * { box-shadow: none !important; } /* Сносим все тяжелые неоновые тени */
+     /* 4. УПРОЩАЕМ ТЕНИ И АНИМАЦИИ */
+     .hero-tag:first-child { animation: none !important; border-color: rgba(139, 92, 246, 0.5) !important; }
+     * { box-shadow: none !important; } /* Сносим все тяжелые неоновые тени */
 
-    /* 5. ОБЛЕГЧАЕМ СТЕКЛО НА КАРТОЧКАХ */
-    .bento-card {
-        padding: 28px 24px !important;
-        /* Делаем фон чуть более плотным, чтобы снизить нагрузку на блюр */
-        background: linear-gradient(145deg, rgba(25, 25, 30, 0.9) 0%, rgba(15, 15, 20, 0.95) 100%) !important;
-        /* Снижаем размытие с 48px до 8px */
-        backdrop-filter: blur(8px) !important;
-        -webkit-backdrop-filter: blur(8px) !important;
-        /* Форсируем аппаратное ускорение */
-        transform: translateZ(0);
-        border: 1px solid rgba(255, 255, 255, 0.08) !important;
-    }
-}
+     /* 5. ОТКЛЮЧАЕМ ПОДПРЫГИВАНИЕ (ЧТОБЫ ССЫЛКИ НЕ УБЕГАЛИ ИЗ-ПОД ПАЛЬЦА) */
+     .bento-card:hover, .bento-card:active {
+         transform: translateZ(0) !important; /* Оставляем аппаратное ускорение, но убираем сдвиг */
+     }
+     .hero-tag:hover, .hero-tag:active,
+     .action-btn:hover, .action-btn:active,
+     .social-link-styled:hover, .social-link-styled:active,
+     .badge-yt:hover, .badge-yt:active,
+     .badge-inst:hover, .badge-inst:active {
+         transform: none !important; /* Намертво прибиваем кнопки на месте */
+     }
+
+     /* 6. ОБЛЕГЧАЕМ СТЕКЛО НА КАРТОЧКАХ */
+     .bento-card {
+         padding: 28px 24px !important;
+         /* Делаем фон чуть более плотным, чтобы снизить нагрузку на блюр */
+         background: linear-gradient(145deg, rgba(25, 25, 30, 0.9) 0%, rgba(15, 15, 20, 0.95) 100%) !important;
+         /* Снижаем размытие с 48px до 8px */
+         backdrop-filter: blur(8px) !important;
+         -webkit-backdrop-filter: blur(8px) !important;
+         /* Форсируем аппаратное ускорение */
+         transform: translateZ(0) !important;
+         border: 1px solid rgba(255, 255, 255, 0.08) !important;
+     }
+ }
