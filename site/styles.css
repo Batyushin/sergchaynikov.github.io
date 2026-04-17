@@ -387,6 +387,10 @@ p {
     position: relative; z-index: 2;
 }
 
+/* Стандартная белая кнопка (Телефон) */
+.btn-glass { background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); color: #fff; }
+.btn-glass:hover { background: rgba(255,255,255,0.12); border-color: rgba(255,255,255,0.3); transform: translateY(-2px); }
+
 .social-link-styled:hover, .social-link-styled:active { transform: scale(1.02); }
 
 .yt-link { color: #ff3333; }
@@ -597,3 +601,4 @@ p {
     .footer-copyright { justify-content: center; text-align: center; }
     .designer-link { align-items: center; }
 }
+
