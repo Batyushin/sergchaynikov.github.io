@@ -35,26 +35,18 @@
             z-index: 0; pointer-events: none;
         }
 
-        /* Заголовки-стекляшки */
+        /* Исправленные заголовки-стекляшки */
         .section-header {
-            padding: 22px 30px !important; /* Вернули красивый отступ внутри */
-            margin-top: 35px; /* Воздух сверху от предыдущего блока */
+            padding: 16px 24px !important; /* Идеальный отступ внутри */
+            min-height: auto !important;   /* Убираем пустоту под текстом */
+            margin: 0 !important;          /* Сбрасываем внешние отступы, работает только сетка */
             z-index: 5;
         }
 
         .section-header h2 {
             font-size: 1.5rem !important;
             margin: 0;
-        }
-
-        /* МАГИЯ: Убираем пустоту между заголовком и карточками */
-        @media (min-width: 921px) {
-            /* Подтягиваем ровно три карточки, идущие после заголовка, вверх на 16px */
-            .section-header + .bento-card,
-            .section-header + .bento-card + .bento-card,
-            .section-header + .bento-card + .bento-card + .bento-card {
-                margin-top: -16px;
-            }
+            line-height: 1.2;
         }
 
         .project-card, .video-card {
@@ -116,11 +108,8 @@
             .lightbox-controls { top: 15px; right: 15px; gap: 8px; }
             .lightbox-btn { width: 40px; height: 40px; }
             .wb-hero-bg { display: none; }
-
-            /* На мобилке подтягиваем только первую карточку, чтобы остальные не слиплись */
-            .section-header + .bento-card { margin-top: -12px; }
+            .section-header { padding: 14px 20px !important; }
             .section-header h2 { font-size: 1.3rem !important; }
-            .section-header { padding: 18px 20px !important; margin-top: 20px; }
         }
     </style>
 </head>
@@ -176,7 +165,7 @@
         </div>
 
         <div class="bento-card span-12 section-header glow-purple">
-            <div style="display: flex; align-items: center; gap: 15px;">
+            <div style="display: flex; align-items: center; gap: 15px; width: 100%;">
                 <div class="card-icon" style="margin: 0; flex-shrink: 0; background: rgba(139, 92, 246, 0.1); border-color: rgba(139, 92, 246, 0.3); color: var(--accent-purple);">📐</div>
                 <h2>Проекты автоматизации Wiren Board</h2>
             </div>
@@ -207,7 +196,7 @@
         </div>
 
         <div class="bento-card span-12 section-header glow-green">
-            <div style="display: flex; align-items: center; gap: 15px;">
+            <div style="display: flex; align-items: center; gap: 15px; width: 100%;">
                 <div class="card-icon" style="margin: 0; flex-shrink: 0; background: rgba(34, 197, 94, 0.1); border-color: rgba(34, 197, 94, 0.3); color: var(--accent-green);">📸</div>
                 <h2>Сборки щитов на Wiren Board</h2>
             </div>
@@ -238,7 +227,7 @@
         </div>
 
         <div class="bento-card span-12 section-header glow-blue">
-            <div style="display: flex; align-items: center; gap: 15px;">
+            <div style="display: flex; align-items: center; gap: 15px; width: 100%;">
                 <div class="card-icon blue-icon" style="margin: 0; flex-shrink: 0; font-size: 1.3rem;">🎬</div>
                 <h2>Видео работы щитов Wiren Board</h2>
             </div>
