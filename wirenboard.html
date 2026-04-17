@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Умные щиты Wiren Board | Сергей Чайников</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;800;900&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="site/styles.css">
+    <link rel="icon" type="image/x-icon" href="site/favicon.ico" />
+
+    <meta name="description" content="Сборка щитов умного дома на базе промышленных контроллеров Wiren Board. Локальная работа без интернета, максимальная надежность и интеграция.">
+    <meta name="keywords" content="wiren board, умный дом wirenboard, сборка щита wiren board, автоматизация дома, умный дом без интернета">
+    <link rel="canonical" href="https://sergchaynikov.ru/wirenboard.html" />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://sergchaynikov.ru/wirenboard.html" />
+    <meta property="og:title" content="Умные щиты Wiren Board | Сергей Чайников" />
+    <meta property="og:description" content="Промышленная автоматика для вашего дома. Сборка щитов на базе Wiren Board." />
+    <meta property="og:image" content="https://sergchaynikov.ru/site/img/og-preview.png" />
+
+    <script src="site/metrics.js" defer></script>
+
+    <style>
+        /* ==========================================================================
+           СТИЛИ ДЛЯ СТРАНИЦЫ WIREN BOARD И ГАЛЕРЕИ
+           ========================================================================== */
+
+        .wb-hero-bg {
+            position: absolute; top: 0; right: 0; bottom: 0; width: 50%;
+            background: radial-gradient(circle at center right, rgba(34, 197, 94, 0.15) 0%, transparent 70%);
+            z-index: 0; pointer-events: none;
+        }
+
+        /* Уменьшенные заголовки-стекляшки */
+        .section-header {
+            padding: 15px 20px !important; /* Уменьшили отступы */
+            margin-top: 15px; /* Немного отступили сверху */
+        }
+
+        .section-header h2 {
+            font-size: 1.5rem !important; /* Уменьшили шрифт */
+            margin: 0;
+        }
+
+        .project-card {
+            padding: 0 !important; overflow: hidden; display: flex;
+            flex-direction: column; cursor: zoom-in;
+        }
+        .project-img-wrapper {
+            height: 240px; width: 100%; background-size: cover;
+            background-position: center; border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            transition: transform 0.5s ease;
+        }
+        .project-card:hover .project-img-wrapper { transform: scale(1.05); }
+        .project-info {
+            padding: 24px; position: relative; z-index: 2;
+            background: linear-gradient(to bottom, rgba(15,15,20,0.4), transparent);
+            flex: 1; display: flex; flex-direction: column; justify-content: space-between;
+        }
+        .project-title { font-size: 1.15rem; font-weight: 800; margin-bottom: 8px; line-height: 1.3; color: #fff; }
+        .project-price { font-size: 0.95rem; font-weight: 600; color: var(--text-muted); }
+
+        /* Стили для видео-карточек (иконка Play) */
+        .video-card .project-img-wrapper {
+            position: relative;
+        }
+        .video-card .project-img-wrapper::after {
+            content: '►'; /* Символ Play */
+            position: absolute; top: 50%; left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 3rem; color: rgba(255,255,255,0.7);
+            background: rgba(0,0,0,0.5);
+            width: 60px; height: 60px;
+            display: flex; align-items: center; justify-content: center;
+            border-radius: 50%;
+            transition: 0.3s ease;
+        }
+        .video-card:hover .project-img-wrapper::after {
+            background: var(--accent-blue);
+            color: #fff;
+            transform: translate(-50%, -50%) scale(1.1);
+        }
+
+        /* --- Лайтбокс --- */
+        .lightbox-overlay {
+            display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(4, 4, 8, 0.95); backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px);
+            z-index: 9999; opacity: 0; transition: opacity 0.3s ease;
+            align-items: center; justify-content: center; overflow: hidden;
+        }
+        .lightbox-overlay.active { display: flex; opacity: 1; }
+        .lightbox-overlay img {
+            max-width: 90vw; max-height: 90vh; border-radius: 16px;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.8); object-fit: contain;
+            transition: transform 0.2s ease-out; cursor: grab;
+            user-select: none; -webkit-user-drag: none;
+        }
+        .lightbox-controls { position: absolute; top: 25px; right: 25px; display: flex; gap: 12px; z-index: 10000; }
+        .lightbox-btn {
+            width: 48px; height: 48px; background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.15); border-radius: 14px;
+            color: #fff; display: flex; align-items: center; justify-content: center;
+            cursor: pointer; transition: all 0.3s ease; backdrop-filter: blur(10px);
+        }
+        .lightbox-btn:hover { background: rgba(255,255,255,0.15); transform: translateY(-2px); }
+        .lightbox-btn.close-btn { background: rgba(239, 68, 68, 0.15); border-color: rgba(239, 68, 68, 0.3); color: #ff4444; }
+        .lightbox-btn.close-btn:hover { background: rgba(239, 68, 68, 0.3); color: #fff; }
+
+        @media (max-width: 920px) {
+            .project-img-wrapper { height: 280px; }
+            .lightbox-controls { top: 15px; right: 15px; gap: 8px; }
+            .lightbox-btn { width: 40px; height: 40px; }
+            .wb-hero-bg { display: none; }
+            .section-header h2 { font-size: 1.3rem !important; } /* Еще меньше на мобильных */
+        }
+    </style>
+</head>
+<body ontouchstart="">
+
+<div class="bg-glow"></div>
+
+<div class="container">
+    <div class="bento-grid">
+
+        <div id="header-container" style="display: contents;"></div>
+
+        <div class="bento-card span-12 glow-green" style="padding: 40px; position: relative;">
+            <div class="wb-hero-bg"></div>
+
+            <div style="position: relative; z-index: 2; max-width: 70%;">
+                <div style="display: flex; align-items: center; gap: 15px; margin-bottom: 20px;">
+                    <div class="card-icon" style="margin: 0; width: 60px; height: 60px; flex-shrink: 0; background: rgba(34, 197, 94, 0.1); border-color: rgba(34, 197, 94, 0.3);">
+                        <img src="site/img/wb.png" alt="WirenBoard" style="width: 60%; height: 60%; object-fit: contain;">
+                    </div>
+                    <h1 style="font-size: 2.8rem; margin: 0; background: none; -webkit-text-fill-color: #fff; text-shadow: none;">Умный дом на <span style="color: var(--accent-green);">Wiren Board</span></h1>
+                </div>
+
+                <p style="font-size: 1.15rem; color: #fff; font-weight: 600; margin-bottom: 15px;">Промышленная надежность для жилых пространств.</p>
+                <p style="font-size: 1.05rem; line-height: 1.6; color: rgba(255,255,255,0.75);">
+                    Мы отказались от дешевых "игрушечных" реле и Wi-Fi розеток. Ядром наших умных щитов выступает промышленный контроллер <strong>Wiren Board</strong>. Это мозг вашего дома, который обрабатывает все сценарии локально, без задержек и скрытых подписок на облачные сервисы.
+                </p>
+            </div>
+        </div>
+
+        <div class="bento-card span-4 glow-blue" style="padding: 28px 30px;">
+            <div style="display: flex; align-items: center; gap: 15px; margin-bottom: 15px;">
+                <div class="card-icon blue-icon" style="margin: 0; flex-shrink: 0;">🌐</div>
+                <h2 style="margin: 0; font-size: 1.1rem; line-height: 1.3;">Работает без интернета</h2>
+            </div>
+            <p style="font-size: 0.95rem; color: rgba(255,255,255,0.75); margin: 0;">Скрипты освещения, защиты от протечек и климата выполняются внутри контроллера. Если провайдер отключит интернет — дом продолжит функционировать.</p>
+        </div>
+
+        <div class="bento-card span-4 glow-purple" style="padding: 28px 30px;">
+            <div style="display: flex; align-items: center; gap: 15px; margin-bottom: 15px;">
+                <div class="card-icon" style="margin: 0; flex-shrink: 0; background: rgba(139, 92, 246, 0.1); border-color: rgba(139, 92, 246, 0.3); color: var(--accent-purple);">🧩</div>
+                <h2 style="margin: 0; font-size: 1.1rem; line-height: 1.3;">Абсолютная интеграция</h2>
+            </div>
+            <p style="font-size: 0.95rem; color: rgba(255,255,255,0.75); margin: 0;">Протокол Modbus позволяет подключить любые бризеры, кондиционереры и датчики. Управляйте домом через Яндекс Алису, Apple HomeKit или любой другой интерфейс.</p>
+        </div>
+
+        <div class="bento-card span-4 glow-green" style="padding: 28px 30px;">
+            <div style="display: flex; align-items: center; gap: 15px; margin-bottom: 15px;">
+                <div class="card-icon" style="margin: 0; flex-shrink: 0; background: rgba(34, 197, 94, 0.1); border-color: rgba(34, 197, 94, 0.3); color: var(--accent-green);">⚙️</div>
+                <h2 style="margin: 0; font-size: 1.1rem; line-height: 1.3;">Промышленные стандарты</h2>
+            </div>
+            <p style="font-size: 0.95rem; color: rgba(255,255,255,0.75); margin: 0;">Оборудование изначально разработано для суровых условий ЦОДов и производств. Отказоустойчивость, которая гарантирует спокойствие вашей семьи.</p>
+        </div>
+
+        <div class="bento-card span-12 section-header glow-purple">
+            <div style="display: flex; align-items: center; gap: 15px;">
+                <div class="card-icon" style="margin: 0; flex-shrink: 0; background: rgba(139, 92, 246, 0.1); border-color: rgba(139, 92, 246, 0.3); color: var(--accent-purple);">📐</div>
+                <h2>Проекты автоматизации Wiren Board</h2>
+            </div>
+        </div>
+
+        <div class="bento-card span-4 project-card glow-purple" onclick="openLightbox('https://static.tildacdn.com/tild3639-3733-4166-b530-633966343738/Home3f_AVR__32-7.jpg')">
+            <div class="project-img-wrapper" style="background-image: url('https://static.tildacdn.com/tild3639-3733-4166-b530-633966343738/Home3f_AVR__32-7.jpg'); filter: hue-rotate(40deg);"></div>
+            <div class="project-info">
+                <div class="project-title">Проект умного дома (Коттедж 200м²)</div>
+                <div class="project-price" style="font-size: 1.1rem; color: var(--accent-purple); font-weight: 800;">от 45 000 ₽</div>
+            </div>
+        </div>
+
+        <div class="bento-card span-4 project-card glow-purple" onclick="openLightbox('https://static.tildacdn.com/tild3639-3733-4166-b530-633966343738/Home3f_AVR__32-7.jpg')">
+            <div class="project-img-wrapper" style="background-image: url('https://static.tildacdn.com/tild3639-3733-4166-b530-633966343738/Home3f_AVR__32-7.jpg'); filter: hue-rotate(10deg);"></div>
+            <div class="project-info">
+                <div class="project-title">Проект квартиры (110м²)</div>
+                <div class="project-price" style="font-size: 1.1rem; color: var(--accent-purple); font-weight: 800;">от 35 000 ₽</div>
+            </div>
+        </div>
+
+        <div class="bento-card span-4 project-card glow-purple" onclick="openLightbox('https://static.tildacdn.com/tild3639-3733-4166-b530-633966343738/Home3f_AVR__32-7.jpg')">
+            <div class="project-img-wrapper" style="background-image: url('https://static.tildacdn.com/tild3639-3733-4166-b530-633966343738/Home3f_AVR__32-7.jpg'); filter: hue-rotate(-20deg);"></div>
+            <div class="project-info">
+                <div class="project-title">Проект автоматики котельной</div>
+                <div class="project-price" style="font-size: 1.1rem; color: var(--accent-purple); font-weight: 800;">от 25 000 ₽</div>
+            </div>
+        </div>
+
+        <div class="bento-card span-12 section-header glow-green">
+            <div style="display: flex; align-items: center; gap: 15px;">
+                <div class="card-icon" style="margin: 0; flex-shrink: 0; background: rgba(34, 197, 94, 0.1); border-color: rgba(34, 197, 94, 0.3); color: var(--accent-green);">📸</div>
+                <h2>Сборки щитов на Wiren Board</h2>
+            </div>
+        </div>
+
+        <div class="bento-card span-4 project-card glow-green" onclick="openLightbox('https://static.tildacdn.com/tild3639-3733-4166-b530-633966343738/Home3f_AVR__32-7.jpg')">
+            <div class="project-img-wrapper" style="background-image: url('https://static.tildacdn.com/tild3639-3733-4166-b530-633966343738/Home3f_AVR__32-7.jpg');"></div>
+            <div class="project-info">
+                <div class="project-title">Сборка для коттеджа (150м²)</div>
+                <div class="project-price">Управление светом, климатом и шторами</div>
+            </div>
+        </div>
+
+        <div class="bento-card span-4 project-card glow-green" onclick="openLightbox('https://static.tildacdn.com/tild3639-3733-4166-b530-633966343738/Home3f_AVR__32-7.jpg')">
+            <div class="project-img-wrapper" style="background-image: url('https://static.tildacdn.com/tild3639-3733-4166-b530-633966343738/Home3f_AVR__32-7.jpg'); filter: hue-rotate(20deg);"></div>
+            <div class="project-info">
+                <div class="project-title">Щит автоматики для квартиры</div>
+                <div class="project-price">Интеграция с Apple Home и Алисой</div>
+            </div>
+        </div>
+
+        <div class="bento-card span-4 project-card glow-green" onclick="openLightbox('https://static.tildacdn.com/tild3639-3733-4166-b530-633966343738/Home3f_AVR__32-7.jpg')">
+            <div class="project-img-wrapper" style="background-image: url('https://static.tildacdn.com/tild3639-3733-4166-b530-633966343738/Home3f_AVR__32-7.jpg'); filter: grayscale(30%);"></div>
+            <div class="project-info">
+                <div class="project-title">Управление котельной</div>
+                <div class="project-price">Сложные логические сценарии отопления</div>
+            </div>
+        </div>
+
+        <div class="bento-card span-12 section-header glow-blue">
+            <div style="display: flex; align-items: center; gap: 15px;">
+                <div class="card-icon blue-icon" style="margin: 0; flex-shrink: 0; font-size: 1.3rem;">🎬</div>
+                <h2>Видео работы щитов Wiren Board</h2>
+            </div>
+        </div>
+
+        <div class="bento-card span-4 project-card video-card glow-blue" onclick="openLightbox('https://static.tildacdn.com/tild3639-3733-4166-b530-633966343738/Home3f_AVR__32-7.jpg')">
+            <div class="project-img-wrapper" style="background-image: url('https://static.tildacdn.com/tild3639-3733-4166-b530-633966343738/Home3f_AVR__32-7.jpg'); filter: brightness(0.7);"></div>
+            <div class="project-info">
+                <div class="project-title">Видеообзор: Коттедж 200м²</div>
+                <div class="project-price" style="font-size: 0.9rem; color: var(--accent-blue); font-weight: 600;">Демонстрация сценариев освещения и климата</div>
+            </div>
+        </div>
+
+        <div class="bento-card span-4 project-card video-card glow-blue" onclick="openLightbox('https://static.tildacdn.com/tild3639-3733-4166-b530-633966343738/Home3f_AVR__32-7.jpg')">
+            <div class="project-img-wrapper" style="background-image: url('https://static.tildacdn.com/tild3639-3733-4166-b530-633966343738/Home3f_AVR__32-7.jpg'); filter: hue-rotate(15deg) brightness(0.7);"></div>
+            <div class="project-info">
+                <div class="project-title">Таймлапс сборки умного щита</div>
+                <div class="project-price" style="font-size: 0.9rem; color: var(--accent-blue); font-weight: 600;">Процесс монтажа контроллера и модулей от А до Я</div>
+            </div>
+        </div>
+
+        <div class="bento-card span-4 project-card video-card glow-blue" onclick="openLightbox('https://static.tildacdn.com/tild3639-3733-4166-b530-633966343738/Home3f_AVR__32-7.jpg')">
+            <div class="project-img-wrapper" style="background-image: url('https://static.tildacdn.com/tild3639-3733-4166-b530-633966343738/Home3f_AVR__32-7.jpg'); filter: grayscale(1) brightness(0.7);"></div>
+            <div class="project-info">
+                <div class="project-title">Голосовое управление (Алиса)</div>
+                <div class="project-price" style="font-size: 0.9rem; color: var(--accent-blue); font-weight: 600;">Тест команд: «Алиса, я ушел», «Сделай теплее»</div>
+            </div>
+        </div>
+
+        <div id="footer-container" style="display: contents;"></div>
+
+    </div>
+</div>
+
+<div id="lightbox" class="lightbox-overlay" onclick="closeLightbox()">
+    <div class="lightbox-controls" onclick="event.stopPropagation()">
+        <button class="lightbox-btn" onclick="zoomOut()">
+            <svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"></circle><path d="M21 21l-4.35-4.35"></path><path d="M8 11h6"></path></svg>
+        </button>
+        <button class="lightbox-btn" onclick="zoomIn()">
+            <svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"></circle><path d="M21 21l-4.35-4.35"></path><path d="M11 8v6"></path><path d="M8 11h6"></path></svg>
+        </button>
+        <button class="lightbox-btn close-btn" onclick="closeLightbox()">
+            <svg width="26" height="26" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M18 6L6 18M6 6l12 12"></path></svg>
+        </button>
+    </div>
+    <img id="lightbox-img" src="" alt="Детали проекта">
+</div>
+
+<script>
+    const lightbox = document.getElementById('lightbox');
+    const lightboxImg = document.getElementById('lightbox-img');
+    let currentScale = 1; let isDragging = false; let startX, startY; let translateX = 0, translateY = 0; let dragDistance = 0;
+
+    function openLightbox(imageSrc) { lightboxImg.src = imageSrc; lightbox.classList.add('active'); document.body.style.overflow = 'hidden'; resetZoom(); }
+    function closeLightbox() { lightbox.classList.remove('active'); document.body.style.overflow = ''; setTimeout(() => { lightboxImg.src = ''; }, 300); }
+    function zoomIn() { if (currentScale < 4) { currentScale += 0.5; updateTransform(); } }
+    function zoomOut() { if (currentScale > 1) { currentScale -= 0.5; updateTransform(); } }
+    function resetZoom() { currentScale = 1; translateX = 0; translateY = 0; updateTransform(); }
+    function updateTransform() { lightboxImg.style.transform = `translate(${translateX}px, ${translateY}px) scale(${currentScale})`; }
+
+    lightboxImg.addEventListener('mousedown', (e) => { e.preventDefault(); isDragging = true; dragDistance = 0; startX = e.clientX - translateX; startY = e.clientY - translateY; lightboxImg.style.cursor = 'grabbing'; });
+    window.addEventListener('mousemove', (e) => { if (!isDragging) return; const newX = e.clientX - startX; const newY = e.clientY - startY; dragDistance += Math.abs(newX - translateX) + Math.abs(newY - translateY); translateX = newX; translateY = newY; updateTransform(); });
+    window.addEventListener('mouseup', () => { if (isDragging) { isDragging = false; lightboxImg.style.cursor = 'grab'; } });
+    lightboxImg.addEventListener('touchstart', (e) => { isDragging = true; dragDistance = 0; startX = e.touches[0].clientX - translateX; startY = e.touches[0].clientY - translateY; });
+    window.addEventListener('touchmove', (e) => { if (!isDragging) return; const newX = e.touches[0].clientX - startX; const newY = e.touches[0].clientY - startY; dragDistance += Math.abs(newX - translateX) + Math.abs(newY - translateY); translateX = newX; translateY = newY; updateTransform(); });
+    window.addEventListener('touchend', () => { isDragging = false; });
+    lightboxImg.addEventListener('click', (e) => { e.stopPropagation(); if (dragDistance < 10) { closeLightbox(); } });
+</script>
+
+<script src="site/loader.js"></script>
+
+</body>
+</html>

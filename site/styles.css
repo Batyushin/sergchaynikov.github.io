@@ -142,7 +142,7 @@ body {
 /* Выравнивание контента */
 .hero-card { justify-content: center; cursor: default; }
 .contact-card { align-items: center; justify-content: center; text-align: center; cursor: default; }
-.icon-card { justify-content: flex-start; cursor: default; }
+.icon-card { justify-content: flex-start; }
 .tight-card { padding: 28px !important; }
 
 /* ==========================================================================
