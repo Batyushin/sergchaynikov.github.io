@@ -315,7 +315,7 @@ p { color: rgba(255,255,255,0.75); font-weight: 500; font-size: 1.05rem; positio
 .service-list a:hover { color: #fff; transform: translateX(5px); }
 
 /* ==========================================================================
-   12. АДАПТИВНОСТЬ
+   12. АДАПТИВНОСТЬ И ОПТИМИЗАЦИЯ ДЛЯ IOS SAFARI
    ========================================================================== */
 @media (max-width: 920px) {
     .span-8, .span-7, .span-6, .span-5, .span-4 { grid-column: span 12; }
@@ -325,34 +325,45 @@ p { color: rgba(255,255,255,0.75); font-weight: 500; font-size: 1.05rem; positio
     .tags-row { gap: 8px; }
     .hero-tag { font-size: 0.7rem; padding: 6px 12px; }
 
-    .bento-card { padding: 28px 24px !important; }
-
     /* Адаптивность для подвала */
     .footer-bottom { flex-direction: column; text-align: center; gap: 25px; }
     .footer-left, .footer-right { align-items: center; }
     .footer-copyright { justify-content: center; text-align: center; }
     .designer-link { align-items: center; }
 
-    /* 1. Режем блюр на карточках в 3 раза и включаем аппаратное ускорение */
-        .bento-card {
-            backdrop-filter: blur(16px) saturate(150%) !important;
-            -webkit-backdrop-filter: blur(16px) saturate(150%) !important;
-            /* Форсируем обработку видеокартой */
-            transform: translateZ(0);
-            will-change: transform, backdrop-filter;
-            /* Облегчаем тени */
-            box-shadow: 0 15px 30px -10px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.1) !important;
-        }
+    /* =========================================================
+       СКОРАЯ ПОМОЩЬ ДЛЯ SAFARI (ОТКЛЮЧАЕМ ТЯЖЕЛЫЙ РЕНДЕР)
+       ========================================================= */
 
-        /* 2. Уменьшаем радиус размытия фоновых сфер (самая частая причина лагов) */
-        .bg-glow::before, .bg-glow::after {
-            filter: blur(60px) !important; /* Было 140px */
-            will-change: transform;
-        }
+    /* 1. УБИРАЕМ ФОНОВЫЕ СФЕРЫ (Главный тормоз) */
+    .bg-glow { display: none !important; }
 
-        /* 3. Убираем плавные транзиции со всего подряд, оставляем только нужное */
-        * {
-            transition-property: background-color, border-color, color, fill, transform, opacity, box-shadow !important;
-        }
+    /* 2. УБИРАЕМ СКРЫТЫЕ МОЛНИИ И НЕОНОВЫЕ ПЯТНА */
+    .bento-card::before { display: none !important; }
+    .neon-glow-left { display: none !important; }
 
+    /* 3. ОТКЛЮЧАЕМ МАСКИ НА ФОТОГРАФИЯХ */
+    /* Маска + стекло = лаги. Заменяем маску на простую полупрозрачность */
+    .hero-bg, .contact-bg-mask {
+        -webkit-mask-image: none !important;
+        mask-image: none !important;
+        opacity: 0.15 !important;
+    }
+
+    /* 4. УПРОЩАЕМ ТЕНИ И АНИМАЦИИ */
+    .hero-tag:first-child { animation: none !important; border-color: rgba(139, 92, 246, 0.5) !important; }
+    * { box-shadow: none !important; } /* Сносим все тяжелые неоновые тени */
+
+    /* 5. ОБЛЕГЧАЕМ СТЕКЛО НА КАРТОЧКАХ */
+    .bento-card {
+        padding: 28px 24px !important;
+        /* Делаем фон чуть более плотным, чтобы снизить нагрузку на блюр */
+        background: linear-gradient(145deg, rgba(25, 25, 30, 0.9) 0%, rgba(15, 15, 20, 0.95) 100%) !important;
+        /* Снижаем размытие с 48px до 8px */
+        backdrop-filter: blur(8px) !important;
+        -webkit-backdrop-filter: blur(8px) !important;
+        /* Форсируем аппаратное ускорение */
+        transform: translateZ(0);
+        border: 1px solid rgba(255, 255, 255, 0.08) !important;
+    }
 }
