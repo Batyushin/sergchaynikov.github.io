@@ -84,6 +84,21 @@
         .btn-kit { background: #005aa9; color: #fff; border: 1px solid #005aa9; }
         .btn-kit:hover { transform: translateY(-2px); box-shadow: 0 5px 15px rgba(0, 90, 169, 0.4); }
 
+        /* Адаптивное видео */
+        .video-wrapper {
+            width: 100%;
+            aspect-ratio: 16/9;
+            border-radius: 32px 32px 0 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            background: #000;
+        }
+        .video-wrapper iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+            border-radius: 32px 32px 0 0;
+        }
+
         /* --- Лайтбокс --- */
         .lightbox-overlay {
             display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
@@ -126,7 +141,7 @@
 
         <div id="header-container" style="display: contents;"></div>
 
-        <div class="bento-card span-12 glow-blue" style="padding: 28px 30px; margin-bottom: 5px;">
+        <div class="bento-card span-12 glow-blue" style="padding: 28px 30px; margin-bottom: 5px; cursor: default;">
             <div style="display: flex; align-items: center; gap: 15px; margin-bottom: 15px;">
                 <div class="card-icon" style="margin: 0; flex-shrink: 0; background: rgba(59, 130, 246, 0.1); border-color: rgba(59, 130, 246, 0.3); color: var(--accent-blue);">📦</div>
                 <h2 style="margin: 0;">Бережная доставка по РФ</h2>
@@ -176,7 +191,7 @@
             </div>
         </div>
 
-        <div class="bento-card span-4 glow-purple" style="padding: 28px 30px;">
+        <div class="bento-card span-4 glow-purple" style="padding: 28px 30px; cursor: default;">
             <div style="display: flex; align-items: center; gap: 15px; margin-bottom: 15px;">
                 <div class="card-icon" style="margin: 0; flex-shrink: 0; background: rgba(139, 92, 246, 0.1); border-color: rgba(139, 92, 246, 0.3); color: var(--accent-purple);">🛡️</div>
                 <h2 style="margin: 0; font-size: 1.1rem; line-height: 1.3;">Многослойная защита</h2>
@@ -184,7 +199,7 @@
             <p style="font-size: 0.95rem; color: rgba(255,255,255,0.75); margin: 0;">Стретч-пленка от пыли, толстый слой вспененного полиэтилена (пупырки) от вибраций, защитные уголки на края и плотный многослойный картон.</p>
         </div>
 
-        <div class="bento-card span-4 glow-green" style="padding: 28px 30px;">
+        <div class="bento-card span-4 glow-green" style="padding: 28px 30px; cursor: default;">
             <div style="display: flex; align-items: center; gap: 15px; margin-bottom: 15px;">
                 <div class="card-icon" style="margin: 0; flex-shrink: 0; background: rgba(34, 197, 94, 0.1); border-color: rgba(34, 197, 94, 0.3); color: var(--accent-green);">🪵</div>
                 <h2 style="margin: 0; font-size: 1.1rem; line-height: 1.3;">Жесткая обрешетка</h2>
@@ -192,7 +207,7 @@
             <p style="font-size: 0.95rem; color: rgba(255,255,255,0.75); margin: 0;">Мы всегда заказываем палетный борт или жесткую деревянную обрешетку в транспортной компании. Щит едет в деревянном панцире, исключая замятия корпуса.</p>
         </div>
 
-        <div class="bento-card span-4 glow-blue" style="padding: 28px 30px;">
+        <div class="bento-card span-4 glow-blue" style="padding: 28px 30px; cursor: default;">
             <div style="display: flex; align-items: center; gap: 15px; margin-bottom: 15px;">
                 <div class="card-icon blue-icon" style="margin: 0; flex-shrink: 0;">📄</div>
                 <h2 style="margin: 0; font-size: 1.1rem; line-height: 1.3;">Полная страховка</h2>
@@ -200,10 +215,23 @@
             <p style="font-size: 0.95rem; color: rgba(255,255,255,0.75); margin: 0;">Каждое отправление страхуется на 100% его реальной стоимости оборудования и работ. В случае форс-мажора вы полностью защищены юридически.</p>
         </div>
 
-        <div class="bento-card span-12 section-header glow-blue">
+        <div class="bento-card span-12 glow-blue" style="padding: 0 !important; overflow: hidden; display: flex; flex-direction: column; cursor: default;">
+            <div class="video-wrapper">
+                <iframe src="https://www.youtube.com/embed/N-f8c1oi2_g" title="Упаковка и отправка электрощита" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+            </div>
+            <div style="padding: 28px 30px;">
+                <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 8px;">
+                    <span style="font-size: 1.3rem;">📦</span>
+                    <h2 style="margin: 0; font-size: 1.3rem;">Как мы упаковываем и отправляем щиты</h2>
+                </div>
+                <p style="margin: 0; color: rgba(255,255,255,0.75); font-size: 1rem; line-height: 1.5;">Показываю все этапы подготовки, упаковки и отправки готового электрощита клиенту транспортной компанией СДЭК 🚛</p>
+            </div>
+        </div>
+
+        <div class="bento-card span-12 section-header glow-blue" style="cursor: default;">
             <div style="display: flex; align-items: center; gap: 15px; width: 100%;">
                 <div class="card-icon blue-icon" style="margin: 0; flex-shrink: 0; font-size: 1.2rem;">📸</div>
-                <h2>Как выглядит процесс упаковки</h2>
+                <h2>Фото процесса</h2>
             </div>
         </div>
 
@@ -228,7 +256,7 @@
             </div>
         </div>
 
-        <div class="bento-card span-12 glow-purple" style="padding: 30px; text-align: center; margin-top: 10px;">
+        <div class="bento-card span-12 glow-purple" style="padding: 30px; text-align: center; margin-top: 10px; cursor: default;">
             <h2 style="margin-bottom: 15px;">Готовы обсудить ваш щит?</h2>
             <p style="color: var(--text-muted); margin-bottom: 20px;">Отправляем эталонную инженерию из Ижевска в любую точку страны.</p>
             <a href="https://t.me/Sergey_Chaynikov_Electrician" target="_blank" class="action-btn btn-glass" style="display: inline-flex; width: auto; padding: 12px 30px; background: var(--accent-purple); color: #fff; border: none; box-shadow: 0 10px 20px rgba(139, 92, 246, 0.3);">
